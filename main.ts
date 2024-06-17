@@ -1,26 +1,13 @@
-import {
-	App,
-	Editor,
-	MarkdownView,
-	Modal,
-	Notice,
-	Plugin,
-	PluginSettingTab,
-	Setting,
-} from "obsidian";
+import { Editor, MarkdownView, Plugin } from "obsidian";
+import { SurahModal } from "./SurahModal";
+import { QuranSettingTab, ObsidianQuranSettings } from "./QuranSettingTab";
 
-// Remember to rename these classes and interfaces!
-
-interface MyPluginSettings {
-	mySetting: string;
-}
-
-const DEFAULT_SETTINGS: MyPluginSettings = {
+const DEFAULT_SETTINGS: ObsidianQuranSettings = {
 	mySetting: "default",
 };
 
-export default class MyPlugin extends Plugin {
-	settings: MyPluginSettings;
+export default class ObsidianQuran extends Plugin {
+	settings: ObsidianQuranSettings;
 
 	async onload() {
 		await this.loadSettings();
@@ -29,27 +16,28 @@ export default class MyPlugin extends Plugin {
 		const ribbonIconEl = this.addRibbonIcon(
 			"book-open",
 			"Quran Plugin",
-			(evt: MouseEvent) => {
+			(_evt: MouseEvent) => {
+				new SurahModal(this.app).open();
 				// Called when the user clicks the icon.
-				new Notice("This is a notice!");
+				// new Notice("This is a notice!");
 			},
 		);
 		// Perform additional things with the ribbon
-		ribbonIconEl.addClass("my-plugin-ribbon-class");
+		ribbonIconEl.addClass("obsidian-quran-ribbon-class");
 
 		// This adds a simple command that can be triggered anywhere
 		this.addCommand({
 			id: "open-quran-modal-simple",
 			name: "Open quran modal (simple)",
 			callback: () => {
-				new QuranModal(this.app).open();
+				new SurahModal(this.app).open();
 			},
 		});
 		// This adds an editor command that can perform some operation on the current editor instance
 		this.addCommand({
 			id: "quran-editor-command",
 			name: "Quran editor command",
-			editorCallback: (editor: Editor, view: MarkdownView) => {
+			editorCallback: (editor: Editor, _view: MarkdownView) => {
 				console.log(editor.getSelection());
 				editor.replaceSelection("Quran Editor Command");
 			},
@@ -66,7 +54,7 @@ export default class MyPlugin extends Plugin {
 					// If checking is true, we're simply "checking" if the command can be run.
 					// If checking is false, then we want to actually perform the operation.
 					if (!checking) {
-						new QuranModal(this.app).open();
+						new SurahModal(this.app).open();
 					}
 
 					// This command will only show up in Command Palette when the check function returns true
@@ -80,14 +68,14 @@ export default class MyPlugin extends Plugin {
 
 		// If the plugin hooks up any global DOM events (on parts of the app that doesn't belong to this plugin)
 		// Using this function will automatically remove the event listener when this plugin is disabled.
-		this.registerDomEvent(document, "click", (evt: MouseEvent) => {
-			console.log("click", evt);
-		});
+		// this.registerDomEvent(document, "click", (evt: MouseEvent) => {
+		// 	console.log("click", evt);
+		// });
 
 		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
-		this.registerInterval(
-			window.setInterval(() => console.log("setInterval"), 5 * 60 * 1000),
-		);
+		// this.registerInterval(
+		// 	window.setInterval(() => console.log("setInterval"), 5 * 60 * 1000),
+		// );
 	}
 
 	onunload() {}
@@ -102,49 +90,5 @@ export default class MyPlugin extends Plugin {
 
 	async saveSettings() {
 		await this.saveData(this.settings);
-	}
-}
-
-class QuranModal extends Modal {
-	constructor(app: App) {
-		super(app);
-	}
-
-	onOpen() {
-		const { contentEl } = this;
-		contentEl.setText("Woah!");
-	}
-
-	onClose() {
-		const { contentEl } = this;
-		contentEl.empty();
-	}
-}
-
-class QuranSettingTab extends PluginSettingTab {
-	plugin: MyPlugin;
-
-	constructor(app: App, plugin: MyPlugin) {
-		super(app, plugin);
-		this.plugin = plugin;
-	}
-
-	display(): void {
-		const { containerEl } = this;
-
-		containerEl.empty();
-
-		new Setting(containerEl)
-			.setName("Setting #1")
-			.setDesc("It's a secret")
-			.addText((text) =>
-				text
-					.setPlaceholder("Enter your secret")
-					.setValue(this.plugin.settings.mySetting)
-					.onChange(async (value) => {
-						this.plugin.settings.mySetting = value;
-						await this.plugin.saveSettings();
-					}),
-			);
 	}
 }
