@@ -1,11 +1,10 @@
 {
 	"id": "quran-plugin",
 	"name": "Quran Plugin",
-	"version": "1.0.0",
+	"version": "0.0.1",
 	"minAppVersion": "0.15.0",
 	"description": "Demonstrates some of the capabilities of the Obsidian API.",
 	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"authorUrl": "https://ammar.codes",
 	"isDesktopOnly": false
 }
