@@ -16,7 +16,7 @@ const Surahs = SurahContent.map((surah) => Object.assign(new Surah(), surah));
 export class SurahModal extends SuggestModal<Surah> {
 	getSuggestions(query: string): Surah[] {
 		if (Number(query)) {
-			// search by ayan number
+			// search by ayah number
 			return Surahs.filter((surah) =>
 				surah.id.toString().includes(query),
 			);

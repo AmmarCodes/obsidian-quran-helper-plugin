@@ -16,7 +16,7 @@ export class AyahModal extends SuggestModal<Ayah> {
 
 	getSuggestions(query: string): Ayah[] {
 		if (Number(query)) {
-			// search by ayan number
+			// search by ayah number
 			return this.surah.verses.filter((ayah) =>
 				ayah.id.toString().includes(query),
 			);
