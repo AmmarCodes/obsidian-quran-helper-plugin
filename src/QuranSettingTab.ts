@@ -1,5 +1,5 @@
 import { App, PluginSettingTab, Setting } from "obsidian";
-import ObsidianQuran from "./main";
+import ObsidianQuran from "../main";
 
 export interface ObsidianQuranSettings {
 	mySetting: string;
