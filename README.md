@@ -2,7 +2,11 @@
 
 A simple plugin to help you select and insert Ayahs (verses) from the Quran into your Obsidian notes. Inserted Ayahs are added to a [quote callout](https://help.obsidian.md/Editing+and+formatting/Callouts) by default.
 
-_Screenshots placeholder_
+![finding a Surah](./assets/screenshots/surah.png)
+
+| Selecting Ayah                                    | Rendered Ayah                                            | Command Palette                                                |
+| ------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------------- |
+| ![finding an Ayah](./assets/screenshots/ayah.png) | ![rendering the Ayah](./assets/screenshots/rendered.png) | ![the rendered ayah](./assets/screenshots/command-palette.png) |
 
 ## Features
 
@@ -12,22 +16,25 @@ _Screenshots placeholder_
 
 ## Installation
 
-### From Obsidian
-
 1. Open the Obsidian settings.
 2. Navigate to `Community plugins`.
 3. Search for `Quran Plugin`.
 4. Click `Install` and then `Enable`.
-
-### Manual Installation
-
-_Steps placeholder_
 
 ## Usage
 
 -   Open the Quran modal by clicking the book icon in the ribbon or selecting the `Insert Ayah` command from the [Command Palette](https://help.obsidian.md/Plugins/Command+palette).
 -   In the modal, choose the Surah by name or number.
 -   Browse or fuzzy search for the desired Ayah.
+
+## Tip on Fuzzy Searching
+
+When searching for a Surah or an Ayah (verse), you can type part of the number or content of that Surah or Ayah.
+
+For example:
+
+-   Type `11` when searching for Surah Al-Nas (numbered 114).
+-   Type a few characters from the Surah name (e.g., `النا`) to filter the list.
 
 ## Comparison with [Obsidian Quran Lookup Plugin](https://github.com/abuibrahim2/quranlookup)
 
@@ -36,16 +43,6 @@ This plugin differs from the Quran Lookup plugin in several ways:
 -   Does not require `Surah:Ayah` format.
 -   Does not require an internet connection.
 -   Allows for fuzzy searching of Surah names or Ayah content.
-
-## TODOs
-
--   [ ] Add custom icon.
--   [ ] Update instructions in the README file.
--   [ ] Add screenshots.
-
-## Credits
-
-The icon is designed by Ardita Maminov from the <a href="https://thenounproject.com/browse/icons/term/al-quran/" target="_blank" title="Al-Quran Icons">Noun Project</a> (CC BY 3.0).
 
 ---
 
