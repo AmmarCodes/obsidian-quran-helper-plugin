@@ -1,4 +1,4 @@
-import { App, MarkdownView, Notice, SuggestModal } from "obsidian";
+import { App, MarkdownView, SuggestModal } from "obsidian";
 import { Surah } from "./SurahModal";
 
 export interface Ayah {
@@ -10,7 +10,6 @@ export class AyahModal extends SuggestModal<Ayah> {
 	private surah: Surah;
 	constructor(app: App, surah: Surah) {
 		super(app);
-		new Notice(`Selected ${surah.name}`);
 		this.surah = surah;
 	}
 
@@ -44,7 +43,6 @@ export class AyahModal extends SuggestModal<Ayah> {
 		const view = this.app.workspace.getActiveViewOfType(MarkdownView);
 		const editor = view?.editor;
 		if (!editor) {
-			new Notice(`Selected ${ayah.text}`);
 			return;
 		}
 		const content = `
