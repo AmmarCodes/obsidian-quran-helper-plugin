@@ -1,4 +1,4 @@
-import { MarkdownView, Plugin } from "obsidian";
+import { Plugin } from "obsidian";
 import { SurahModal } from "./src/SurahModal";
 
 export default class ObsidianQuran extends Plugin {
@@ -8,21 +8,11 @@ export default class ObsidianQuran extends Plugin {
 			new SurahModal(this.app).open();
 		});
 
-		// This adds a complex command that can check whether the current state of the app allows execution of the command
 		this.addCommand({
 			id: "open-quran-modal",
 			name: "Insert Ayah",
-			checkCallback: (checking: boolean) => {
-				const markdownView =
-					this.app.workspace.getActiveViewOfType(MarkdownView);
-				if (markdownView) {
-					if (!checking) {
-						new SurahModal(this.app).open();
-					}
-
-					// This command will only show up in Command Palette when the check function returns true
-					return true;
-				}
+			callback: () => {
+				new SurahModal(this.app).open();
 			},
 		});
 	}

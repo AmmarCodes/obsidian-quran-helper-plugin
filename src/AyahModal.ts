@@ -47,7 +47,7 @@ export class AyahModal extends SuggestModal<Ayah> {
 		}
 		const content = `
 > [!quote] ${ayah.text}
-${this.surah.name} - ${ayah.id}
+> ${this.surah.name} - ${ayah.id}
 
 `;
 		editor.replaceRange(content, editor.getCursor());

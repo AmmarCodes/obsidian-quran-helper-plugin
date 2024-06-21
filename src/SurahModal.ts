@@ -1,6 +1,6 @@
 import { Ayah, AyahModal } from "src/AyahModal";
 import { Notice, SuggestModal } from "obsidian";
-import SurahContent from "../quran.json";
+import SurahContent from "./quran.json";
 
 export class Surah {
 	id: number;
