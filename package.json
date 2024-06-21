@@ -1,6 +1,6 @@
 {
 	"name": "obsidian-quran-plugin",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Obsidian plugin to find and insert any Quran Ayah (verse) in your notes",
 	"main": "main.js",
 	"scripts": {
