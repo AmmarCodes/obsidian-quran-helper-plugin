@@ -4,7 +4,7 @@ import { SurahModal } from "./src/SurahModal";
 export default class ObsidianQuran extends Plugin {
 	async onload() {
 		// This creates an icon in the left ribbon.
-		this.addRibbonIcon("book-open", "Obsidian Quran: Insert Ayah", () => {
+		this.addRibbonIcon("book-open", "Insert Ayah", () => {
 			new SurahModal(this.app).open();
 		});
 
