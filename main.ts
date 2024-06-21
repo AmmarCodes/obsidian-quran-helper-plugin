@@ -11,7 +11,7 @@ export default class ObsidianQuran extends Plugin {
 		// This adds a complex command that can check whether the current state of the app allows execution of the command
 		this.addCommand({
 			id: "open-quran-modal",
-			name: "Obsidian Quran: Insert Ayah",
+			name: "Insert Ayah",
 			checkCallback: (checking: boolean) => {
 				const markdownView =
 					this.app.workspace.getActiveViewOfType(MarkdownView);
