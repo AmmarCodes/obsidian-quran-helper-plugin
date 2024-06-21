@@ -1,6 +1,6 @@
-# Obsidian Quran Plugin
+# Quran Helper Plugin
 
-A simple plugin to help you select and insert Ayahs (verses) from the Quran into your Obsidian notes. Inserted Ayahs are added to a [quote callout](https://help.obsidian.md/Editing+and+formatting/Callouts) by default.
+An Obsidian plugin that helps you select and insert Ayahs (verses) from the Quran into your Obsidian notes. Inserted Ayahs are added to a [quote callout](https://help.obsidian.md/Editing+and+formatting/Callouts) by default.
 
 ![finding a Surah](./assets/screenshots/surah.png)
 
@@ -18,7 +18,7 @@ A simple plugin to help you select and insert Ayahs (verses) from the Quran into
 
 1. Open the Obsidian settings.
 2. Navigate to `Community plugins`.
-3. Search for `Obsidian Quran `.
+3. Search for `Quran Helper`.
 4. Click `Install` and then `Enable`.
 
 ## Usage
