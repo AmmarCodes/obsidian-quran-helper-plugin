@@ -4,9 +4,9 @@ An Obsidian plugin that helps you select and insert Ayahs (verses) from the Qura
 
 ![finding a Surah](./assets/screenshots/surah.png)
 
-| Selecting Ayah                                    | Rendered Ayah                                            | Command Palette                                                |
-| ------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------------- |
-| ![finding an Ayah](./assets/screenshots/ayah.png) | ![rendering the Ayah](./assets/screenshots/rendered.png) | ![the rendered ayah](./assets/screenshots/command-palette.png) |
+| Selecting Ayah                                    | Rendered Ayah                                            | Command Palette                                                | Fuzzy Search (fzf)                                        |
+| ------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------- |
+| ![finding an Ayah](./assets/screenshots/ayah.png) | ![rendering the Ayah](./assets/screenshots/rendered.png) | ![the rendered ayah](./assets/screenshots/command-palette.png) | ![fzf search](./assets/screenshots/fzf-search.png)      |
 
 ## Features
 
