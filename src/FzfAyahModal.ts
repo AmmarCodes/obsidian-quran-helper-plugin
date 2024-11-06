@@ -1,5 +1,4 @@
 import { App, MarkdownView, SuggestModal } from "obsidian";
-// import from ./all_ayahs.json
 import AllAyahsContent from "./ayahs.json";
 import { normalizeArabic } from "./utils";
 
