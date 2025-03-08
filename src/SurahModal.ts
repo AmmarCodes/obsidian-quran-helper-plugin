@@ -46,3 +46,4 @@ export class SurahModal extends SuggestModal<Surah> {
 		new Notice(`Selected ${surah.name}`);
 	}
 }
+
