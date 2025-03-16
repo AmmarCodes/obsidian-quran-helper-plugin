@@ -4,17 +4,19 @@ An Obsidian plugin that helps you select and insert Ayahs (verses) from the Qura
 
 ![finding a Surah](./assets/screenshots/surah.png)
 
-| Selecting Ayah                                    | Rendered Ayah                                            | Command Palette                                                | Fuzzy Search (fzf)                                        |
-| ------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------- |
-| ![finding an Ayah](./assets/screenshots/ayah.png) | ![rendering the Ayah](./assets/screenshots/rendered.png) | ![the rendered ayah](./assets/screenshots/command-palette.png) | ![fzf search](./assets/screenshots/fzf-search.png)      |
+| Selecting Ayah                                    | Rendered Ayah                                            | Command Palette                                                | Fuzzy Search (fzf)                                 |
+| ------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------- |
+| ![finding an Ayah](./assets/screenshots/ayah.png) | ![rendering the Ayah](./assets/screenshots/rendered.png) | ![the rendered ayah](./assets/screenshots/command-palette.png) | ![fzf search](./assets/screenshots/fzf-search.png) |
 
 ## Features
 
--   Insert Ayahs directly into your notes.
--   Fuzzy search for Surah names or Ayah content.
--   No internet connection required.
+- Insert Ayahs directly into your notes.
+- Fuzzy search for Surah names or Ayah content.
+- No internet connection required.
 
 ## Installation
+
+You can install it directly from the [community plugins](https://obsidian.md/plugins?id=quran-helper).
 
 1. Open the Obsidian settings.
 2. Navigate to `Community plugins`.
@@ -23,9 +25,9 @@ An Obsidian plugin that helps you select and insert Ayahs (verses) from the Qura
 
 ## Usage
 
--   Open the Quran modal by clicking the book icon in the ribbon or selecting the `Insert Ayah` command from the [Command Palette](https://help.obsidian.md/Plugins/Command+palette).
--   In the modal, choose the Surah by name or number.
--   Browse or fuzzy search for the desired Ayah.
+- Open the Quran modal by clicking the book icon in the ribbon or selecting the `Insert Ayah` command from the [Command Palette](https://help.obsidian.md/Plugins/Command+palette).
+- In the modal, choose the Surah by name or number.
+- Browse or fuzzy search for the desired Ayah.
 
 ## Tip on Searching
 
@@ -33,16 +35,16 @@ When searching for a Surah or an Ayah (verse), you can type part of the number o
 
 For example:
 
--   Type `11` when searching for Surah Al-Nas (numbered 114).
--   Type a few characters from the Surah name (e.g., `النا`) to filter the list.
+- Type `11` when searching for Surah Al-Nas (numbered 114).
+- Type a few characters from the Surah name (e.g., `النا`) to filter the list.
 
 ## Comparison with [Obsidian Quran Lookup Plugin](https://github.com/abuibrahim2/quranlookup)
 
 This plugin differs from the Quran Lookup plugin in several ways:
 
--   Does not require `Surah:Ayah` format.
--   Does not require an internet connection.
--   Allows for fuzzy searching of Surah names or Ayah content.
+- Does not require `Surah:Ayah` format.
+- Does not require an internet connection.
+- Allows for fuzzy searching of Surah names or Ayah content.
 
 ## Credits
 
