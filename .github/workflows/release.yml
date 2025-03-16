@@ -8,7 +8,8 @@ on:
 jobs:
     build:
         runs-on: ubuntu-latest
-
+        permissions:
+            contents: write
         steps:
             - uses: actions/checkout@v3
 
@@ -31,4 +32,4 @@ jobs:
                   gh release create "$tag" \
                     --title="$tag" \
                     --draft \
-                    main.js manifest.json
+                    main.js manifest.json styles.css
