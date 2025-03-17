@@ -1,0 +1,4 @@
+.callout[data-callout="quran"] {
+  --callout-color: var(--color-green-rgb, 40, 105, 131);
+  --callout-icon: lucide-book-open;
+}

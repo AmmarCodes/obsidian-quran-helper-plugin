@@ -45,8 +45,8 @@ export class FzfAyahModal extends SuggestModal<FlatAyah> {
     if (!editor) return;
 
     const content = `
-> [!quote] ${ayah.text}
-> ${ayah.surah_name} - ${ayah.ayah_id}
+> [!quran] ${ayah.surah_name} - ${ayah.ayah_id}
+> ${ayah.text}
 
 `;
     editor.replaceRange(content, editor.getCursor());
