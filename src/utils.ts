@@ -1,6 +1,6 @@
 // Function to normalize Arabic text
 export function normalizeArabic(text: string): string {
-return (
+  return (
     text
       // Remove diacritics (tashkeel)
       .replace(/[\u0617-\u061A\u06d6\u06d7\u064B-\u0652]/g, "")
@@ -19,5 +19,4 @@ return (
       // Remove any remaining double spaces
       .replace(/\s+/g, " ")
   );
-
 }

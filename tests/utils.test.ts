@@ -1,7 +1,7 @@
 import { normalizeArabic } from "../src/utils";
 
 describe("normalizeArabicChars", () => {
-it.each([
+  it.each([
     { input: "", expected: "" },
     { input: "عَلَىٰ", expected: "على" },
     { input: "أَعْلَمُ", expected: "اعلم" },
