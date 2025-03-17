@@ -10,17 +10,18 @@ export default class QuranHelper extends Plugin {
     });
 
     this.addCommand({
-      id: "open-quran-modal",
-      name: "Insert Ayah",
-      callback: () => {
-        new SurahModal(this.app).open();
-      },
-    });
-    this.addCommand({
       id: "open-fzf-quran-modal",
-      name: "Fuzzy Find Ayah",
+      name: "Add Ayah",
       callback: () => {
         new FzfAyahModal(this.app).open();
+      },
+    });
+
+    this.addCommand({
+      id: "open-quran-modal",
+      name: "Insert Ayah after choosing its Surah",
+      callback: () => {
+        new SurahModal(this.app).open();
       },
     });
   }
