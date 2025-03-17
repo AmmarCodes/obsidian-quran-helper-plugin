@@ -19,4 +19,5 @@ return (
       // Remove any remaining double spaces
       .replace(/\s+/g, " ")
   );
+
 }
