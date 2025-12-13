@@ -1,15 +1,7 @@
-import { Ayah, AyahModal } from "src/AyahModal";
+import { AyahModal } from "src/AyahModal";
 import { Notice, SuggestModal } from "obsidian";
 import SurahContent from "./quran.json";
-
-export class Surah {
-  id: number;
-  name: string;
-  total_verses: number;
-  transliteration: string;
-  type: string;
-  verses: Ayah[];
-}
+import { Surah } from "./types";
 
 const Surahs = SurahContent.map((surah) => Object.assign(new Surah(), surah));
 

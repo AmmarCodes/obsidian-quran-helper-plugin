@@ -2,13 +2,7 @@ import { App, MarkdownView, SuggestModal } from "obsidian";
 import AllAyahsContent from "./ayahs.json";
 import { normalizeArabic } from "./utils";
 
-// Define Ayah structure
-interface FlatAyah {
-  surah_id: number;
-  ayah_id: number;
-  text: string;
-  surah_name: string;
-}
+import { FlatAyah } from "./types";
 
 // Load all Ayahs from all_ayahs.json
 const allAyahs: FlatAyah[] = AllAyahsContent;

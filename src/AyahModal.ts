@@ -1,10 +1,7 @@
 import { App, MarkdownView, SuggestModal } from "obsidian";
-import { Surah } from "./SurahModal";
+import { Ayah, Surah } from "./types";
 
-export interface Ayah {
-  id: number;
-  text: string;
-}
+export type { Ayah };
 
 export class AyahModal extends SuggestModal<Ayah> {
   private surah: Surah;
