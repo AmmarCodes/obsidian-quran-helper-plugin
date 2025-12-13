@@ -1,4 +1,5 @@
 import { App, MarkdownView, SuggestModal } from "obsidian";
+import { searchSurahVerses } from "./searchUtils";
 import { Ayah, Surah } from "./types";
 
 export type { Ayah };
@@ -11,20 +12,7 @@ export class AyahModal extends SuggestModal<Ayah> {
   }
 
   getSuggestions(query: string): Ayah[] {
-    if (Number(query)) {
-      // search by ayah number
-      return this.surah.verses.filter((ayah) =>
-        ayah.id.toString().includes(query),
-      );
-    } else {
-      // search by ayah content
-      return this.surah.verses.filter((ayah) =>
-        ayah.text
-          .replace(/\u0670|\u0671/g, "ا") // replace instances of `ا` like `ٱ` or `ٰ`
-          .replace(/[ؐ-ًؕ-ٖٓ-ٟۖ-ٰٰۭ]/g, "") // remove tashkeel
-          .includes(query),
-      );
-    }
+    return searchSurahVerses(query, this.surah.verses);
   }
 
   // Renders each suggestion item.

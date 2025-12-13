@@ -1,20 +1,16 @@
 import { AyahModal } from "src/AyahModal";
 import { Notice, SuggestModal } from "obsidian";
 import SurahContent from "./quran.json";
+import { searchSurahs } from "./searchUtils";
 import { Surah } from "./types";
 
-const Surahs = SurahContent.map((surah) => Object.assign(new Surah(), surah));
+const Surahs: Surah[] = SurahContent.map(
+  (surah) => Object.assign({}, surah) as unknown as Surah,
+);
 
 export class SurahModal extends SuggestModal<Surah> {
   getSuggestions(query: string): Surah[] {
-    if (Number(query)) {
-      // search by ayah number
-      return Surahs.filter((surah) => surah.id.toString().includes(query));
-    } else {
-      return Surahs.filter((surah) =>
-        surah.name.toLowerCase().includes(query.toLowerCase()),
-      );
-    }
+    return searchSurahs(query, Surahs);
   }
 
   // Renders each suggestion item.

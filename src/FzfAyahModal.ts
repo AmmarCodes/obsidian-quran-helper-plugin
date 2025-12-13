@@ -1,7 +1,6 @@
 import { App, MarkdownView, SuggestModal } from "obsidian";
 import AllAyahsContent from "./ayahs.json";
-import { normalizeArabic } from "./utils";
-
+import { searchAyahs } from "./searchUtils";
 import { FlatAyah } from "./types";
 
 // Load all Ayahs from all_ayahs.json
@@ -13,17 +12,7 @@ export class FzfAyahModal extends SuggestModal<FlatAyah> {
   }
 
   getSuggestions(query: string): FlatAyah[] {
-    // Normalize the query for searching
-    const normalizedQuery = normalizeArabic(query);
-    // Filter ayahs by query matching ayah text or ID
-    if (Number(query)) {
-      return allAyahs.filter((ayah) => ayah.ayah_id.toString().includes(query));
-    } else {
-      // Compare against normalized ayah text
-      return allAyahs.filter((ayah) =>
-        normalizeArabic(ayah.text).includes(normalizedQuery),
-      );
-    }
+    return searchAyahs(query, allAyahs);
   }
 
   renderSuggestion(ayah: FlatAyah, el: HTMLElement) {
