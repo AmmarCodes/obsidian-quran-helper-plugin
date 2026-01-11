@@ -17,15 +17,40 @@ class QuranDataService {
   public async getAyahs(): Promise<IndexedAyah[]> {
     if (this.ayahs) return this.ayahs;
 
-    const data = await import("./ayahs.json");
-    const rawAyahs = (data.default || data) as unknown as SearchableAyah[];
+    try {
+      const data = await import("./ayahs.json");
+      const rawAyahs = (data.default || data) as unknown as SearchableAyah[];
 
-    this.ayahs = rawAyahs.map((ayah) => ({
-      ...ayah,
-      normalized_text: normalizeArabic(ayah.text),
-    }));
+      // Validate data structure
+      if (!Array.isArray(rawAyahs)) {
+        throw new Error("Invalid ayahs data format: expected an array");
+      }
 
-    return this.ayahs;
+      this.ayahs = rawAyahs.map((ayah, index) => {
+        // Validate each ayah has required fields
+        if (
+          !ayah ||
+          typeof ayah.text !== "string" ||
+          typeof ayah.surah_name !== "string" ||
+          typeof ayah.ayah_id !== "number" ||
+          typeof ayah.surah_id !== "number"
+        ) {
+          throw new Error(
+            `Invalid ayah data at index ${index}: missing required fields`,
+          );
+        }
+
+        return {
+          ...ayah,
+          normalized_text: normalizeArabic(ayah.text),
+        };
+      });
+
+      return this.ayahs;
+    } catch (error) {
+      console.error("Failed to load ayahs:", error);
+      throw error; // Re-throw so caller can handle
+    }
   }
 }
 

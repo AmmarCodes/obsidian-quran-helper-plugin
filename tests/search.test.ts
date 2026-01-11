@@ -56,5 +56,31 @@ describe("Search Utils", () => {
       expect(firstResult).toBeDefined();
       expect(firstResult?.text).toContain("الْحَمْدُ");
     });
+
+    it("handles empty queries", () => {
+      const results = searchAyahs("", mockAyahs);
+      expect(results).toHaveLength(3); // All 3 mock ayahs
+    });
+
+    it("respects result limit", () => {
+      // Create a larger mock dataset
+      const largeMockAyahs: IndexedAyah[] = Array.from({ length: 100 }, (_, i) => ({
+        surah_id: 1,
+        ayah_id: i + 1,
+        text: `Test ayah ${i + 1}`,
+        surah_name: "Test",
+        normalized_text: `test ayah ${i + 1}`,
+      }));
+
+      const results = searchAyahs("test", largeMockAyahs, 10);
+      expect(results).toHaveLength(10);
+    });
+
+    it("handles numeric queries correctly", () => {
+      // Test that "1abc" is not treated as numeric
+      const results = searchAyahs("1abc", mockAyahs);
+      // Should search by text, not by ID
+      expect(results).toHaveLength(0);
+    });
   });
 });

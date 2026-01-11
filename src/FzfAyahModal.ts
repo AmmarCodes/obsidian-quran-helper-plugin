@@ -1,4 +1,4 @@
-import { App, MarkdownView, SuggestModal } from "obsidian";
+import { App, MarkdownView, Notice, SuggestModal } from "obsidian";
 import { quranDataService } from "./QuranDataService";
 import { searchAyahs } from "./searchUtils";
 import { IndexedAyah } from "./types";
@@ -35,15 +35,35 @@ export class FzfAyahModal extends SuggestModal<IndexedAyah> {
   }
 
   onChooseSuggestion(ayah: IndexedAyah, _evt: MouseEvent | KeyboardEvent) {
+    // Validate ayah object has required properties
+    if (
+      !ayah ||
+      !ayah.text ||
+      !ayah.surah_name ||
+      typeof ayah.ayah_id !== "number"
+    ) {
+      console.error("Invalid ayah data:", ayah);
+      new Notice("Error: Invalid ayah data. Please try again.");
+      return;
+    }
+
     const view = this.app.workspace.getActiveViewOfType(MarkdownView);
     const editor = view?.editor;
-    if (!editor) return;
+    if (!editor) {
+      new Notice("Error: No active editor found. Please open a note first.");
+      return;
+    }
 
-    const content = `
+    try {
+      const content = `
 > [!quran] ${ayah.surah_name} - ${ayah.ayah_id}
 > ${ayah.text}
 
 `;
-    editor.replaceRange(content, editor.getCursor());
+      editor.replaceRange(content, editor.getCursor());
+    } catch (error) {
+      console.error("Failed to insert ayah:", error);
+      new Notice("Error: Failed to insert ayah. Please try again.");
+    }
   }
 }
