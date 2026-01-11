@@ -2,9 +2,10 @@ import { App, MarkdownView, SuggestModal } from "obsidian";
 import { quranDataService } from "./QuranDataService";
 import { searchAyahs } from "./searchUtils";
 import { FlatAyah } from "./types";
+import { INITIAL_AYAHS } from "./initialAyahs";
 
 export class FzfAyahModal extends SuggestModal<FlatAyah> {
-  private allAyahs: FlatAyah[] = [];
+  private allAyahs: FlatAyah[] = INITIAL_AYAHS;
 
   constructor(app: App) {
     super(app);
@@ -12,7 +13,10 @@ export class FzfAyahModal extends SuggestModal<FlatAyah> {
 
   async onOpen() {
     super.onOpen();
-    this.allAyahs = await quranDataService.getAyahs();
+    quranDataService.getAyahs().then((ayahs) => {
+      this.allAyahs = ayahs;
+      this.inputEl.dispatchEvent(new Event("input"));
+    });
   }
 
   getSuggestions(query: string): FlatAyah[] {
