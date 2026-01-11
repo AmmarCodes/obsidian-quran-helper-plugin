@@ -1,18 +1,22 @@
 import { App, MarkdownView, SuggestModal } from "obsidian";
-import AllAyahsContent from "./ayahs.json";
+import { quranDataService } from "./QuranDataService";
 import { searchAyahs } from "./searchUtils";
 import { FlatAyah } from "./types";
 
-// Load all Ayahs from all_ayahs.json
-const allAyahs: FlatAyah[] = AllAyahsContent;
-
 export class FzfAyahModal extends SuggestModal<FlatAyah> {
+  private allAyahs: FlatAyah[] = [];
+
   constructor(app: App) {
     super(app);
   }
 
+  async onOpen() {
+    super.onOpen();
+    this.allAyahs = await quranDataService.getAyahs();
+  }
+
   getSuggestions(query: string): FlatAyah[] {
-    return searchAyahs(query, allAyahs);
+    return searchAyahs(query, this.allAyahs);
   }
 
   renderSuggestion(ayah: FlatAyah, el: HTMLElement) {

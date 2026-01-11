@@ -1,19 +1,21 @@
 import { AyahModal } from "src/AyahModal";
 import { Notice, SuggestModal } from "obsidian";
-import SurahContent from "./quran.json";
+import { quranDataService } from "./QuranDataService";
 import { searchSurahs } from "./searchUtils";
 import { Surah } from "./types";
 
-const Surahs: Surah[] = SurahContent.map(
-  (surah) => Object.assign({}, surah) as unknown as Surah,
-);
-
 export class SurahModal extends SuggestModal<Surah> {
-  getSuggestions(query: string): Surah[] {
-    return searchSurahs(query, Surahs);
+  private surahs: Surah[] = [];
+
+  async onOpen() {
+    super.onOpen();
+    this.surahs = await quranDataService.getSurahs();
   }
 
-  // Renders each suggestion item.
+  getSuggestions(query: string): Surah[] {
+    return searchSurahs(query, this.surahs);
+  }
+
   renderSuggestion(surah: Surah, el: HTMLElement) {
     el.createEl("div", { text: surah.name });
     el.createEl("small", {
@@ -26,7 +28,6 @@ export class SurahModal extends SuggestModal<Surah> {
     });
   }
 
-  // Perform action on the selected suggestion.
   onChooseSuggestion(surah: Surah, _evt: MouseEvent | KeyboardEvent) {
     new AyahModal(this.app, surah).open();
     new Notice(`Selected ${surah.name}`);
