@@ -3,10 +3,11 @@ import {
   searchSurahs,
   searchSurahVerses,
 } from "../src/searchUtils";
-import { Surah, FlatAyah } from "../src/types";
+import { Surah, IndexedAyah, SearchableAyah } from "../src/types";
+import { normalizeArabic } from "../src/utils";
 
 // Mock Data
-const mockAyahs: FlatAyah[] = [
+const mockFlatAyahs: SearchableAyah[] = [
   {
     surah_id: 1,
     ayah_id: 1,
@@ -26,6 +27,11 @@ const mockAyahs: FlatAyah[] = [
     surah_name: "الإخلاص",
   },
 ];
+
+const mockAyahs: IndexedAyah[] = mockFlatAyahs.map((ayah) => ({
+  ...ayah,
+  normalized_text: normalizeArabic(ayah.text),
+}));
 
 const mockSurahs: Surah[] = [
   {

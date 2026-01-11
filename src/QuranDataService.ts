@@ -1,8 +1,9 @@
-import { FlatAyah, Surah } from "./types";
+import { IndexedAyah, SearchableAyah, Surah } from "./types";
+import { normalizeArabic } from "./utils";
 
 class QuranDataService {
   private static instance: QuranDataService;
-  private ayahs: FlatAyah[] | null = null;
+  private ayahs: IndexedAyah[] | null = null;
   private surahs: Surah[] | null = null;
 
   private constructor() {}
@@ -14,11 +15,17 @@ class QuranDataService {
     return QuranDataService.instance;
   }
 
-  public async getAyahs(): Promise<FlatAyah[]> {
+  public async getAyahs(): Promise<IndexedAyah[]> {
     if (this.ayahs) return this.ayahs;
 
     const data = await import("./ayahs.json");
-    this.ayahs = (data.default || data) as unknown as FlatAyah[];
+    const rawAyahs = (data.default || data) as unknown as SearchableAyah[];
+
+    this.ayahs = rawAyahs.map((ayah) => ({
+      ...ayah,
+      normalized_text: normalizeArabic(ayah.text),
+    }));
+
     return this.ayahs;
   }
 

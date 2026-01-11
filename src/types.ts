@@ -3,11 +3,15 @@ export interface Ayah {
   text: string;
 }
 
-export interface FlatAyah {
+export interface SearchableAyah {
   surah_id: number;
   ayah_id: number;
   text: string;
   surah_name: string;
+}
+
+export interface IndexedAyah extends SearchableAyah {
+  normalized_text: string;
 }
 
 export interface Surah {
