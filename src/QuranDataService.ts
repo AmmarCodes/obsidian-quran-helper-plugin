@@ -1,10 +1,9 @@
-import { IndexedAyah, SearchableAyah, Surah } from "./types";
+import { IndexedAyah, SearchableAyah } from "./types";
 import { normalizeArabic } from "./utils";
 
 class QuranDataService {
   private static instance: QuranDataService;
   private ayahs: IndexedAyah[] | null = null;
-  private surahs: Surah[] | null = null;
 
   private constructor() {}
 
@@ -27,18 +26,6 @@ class QuranDataService {
     }));
 
     return this.ayahs;
-  }
-
-  public async getSurahs(): Promise<Surah[]> {
-    if (this.surahs) return this.surahs;
-
-    const data = await import("./quran.json");
-    const rawData = (data.default || data) as any[];
-
-    this.surahs = rawData.map(
-      (surah) => Object.assign({}, surah) as unknown as Surah,
-    );
-    return this.surahs;
   }
 }
 

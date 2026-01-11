@@ -13,12 +13,3 @@ export interface SearchableAyah {
 export interface IndexedAyah extends SearchableAyah {
   normalized_text: string;
 }
-
-export interface Surah {
-  id: number;
-  name: string;
-  total_verses: number;
-  transliteration: string;
-  type: string;
-  verses: Ayah[];
-}
