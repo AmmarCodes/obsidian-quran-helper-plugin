@@ -13,10 +13,14 @@ export class FzfAyahModal extends SuggestModal<IndexedAyah> {
 
   async onOpen() {
     super.onOpen();
-    quranDataService.getAyahs().then((ayahs) => {
+    try {
+      const ayahs = await quranDataService.getAyahs();
       this.allAyahs = ayahs;
       this.inputEl.dispatchEvent(new Event("input"));
-    });
+    } catch (error) {
+      // Log error but don't break the modal - fallback to INITIAL_AYAHS
+      console.error("Failed to load ayahs:", error);
+    }
   }
 
   getSuggestions(query: string): IndexedAyah[] {

@@ -35,7 +35,9 @@ describe("Search Utils", () => {
       // Searching for "بسم الله" should find the first ayah
       const results = searchAyahs("بسم الله", mockAyahs);
       expect(results.length).toBeGreaterThan(0);
-      expect(results[0].surah_id).toBe(1);
+      const firstResult = results[0];
+      expect(firstResult).toBeDefined();
+      expect(firstResult?.surah_id).toBe(1);
     });
 
     it("finds ayah by number", () => {
@@ -50,7 +52,9 @@ describe("Search Utils", () => {
     it("handles partial matches", () => {
       const results = searchAyahs("الحمد", mockAyahs);
       expect(results).toHaveLength(1);
-      expect(results[0].text).toContain("الْحَمْدُ");
+      const firstResult = results[0];
+      expect(firstResult).toBeDefined();
+      expect(firstResult?.text).toContain("الْحَمْدُ");
     });
   });
 });

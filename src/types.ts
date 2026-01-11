@@ -1,8 +1,3 @@
-export interface Ayah {
-  id: number;
-  text: string;
-}
-
 export interface SearchableAyah {
   surah_id: number;
   ayah_id: number;
