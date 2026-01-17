@@ -1,33 +1,37 @@
 import { App, MarkdownView, Notice, SuggestModal } from "obsidian";
 import { quranDataService } from "./QuranDataService";
-import { searchAyahs } from "./searchUtils";
+import { QuranSearch } from "./QuranSearch";
 import { IndexedAyah } from "./types";
 import { INITIAL_AYAHS } from "./initialAyahs";
 import QuranHelper from "../main";
 
 export class FzfAyahModal extends SuggestModal<IndexedAyah> {
-  private allAyahs: IndexedAyah[] = INITIAL_AYAHS;
+  private quranSearch: QuranSearch | null = null;
   private plugin: QuranHelper;
 
   constructor(app: App, plugin: QuranHelper) {
     super(app);
     this.plugin = plugin;
+    // Initialize with a temporary search instance using initial ayahs
+    // so we can use it immediately while full data loads
+    this.quranSearch = new QuranSearch(INITIAL_AYAHS);
   }
 
   async onOpen() {
     super.onOpen();
     try {
-      const ayahs = await quranDataService.getAyahs();
-      this.allAyahs = ayahs;
+      this.quranSearch = await quranDataService.getSearchService();
+      // Trigger search update to show full results if input is not empty
       this.inputEl.dispatchEvent(new Event("input"));
     } catch (error) {
-      // Log error but don't break the modal - fallback to INITIAL_AYAHS
       console.error("Failed to load ayahs:", error);
+      // Fallback is already handled by constructor initialization
     }
   }
 
   getSuggestions(query: string): IndexedAyah[] {
-    return searchAyahs(query, this.allAyahs);
+    if (!this.quranSearch) return [];
+    return this.quranSearch.search(query);
   }
 
   renderSuggestion(ayah: IndexedAyah, el: HTMLElement) {

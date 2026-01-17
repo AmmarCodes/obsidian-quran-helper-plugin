@@ -1,9 +1,11 @@
 import { IndexedAyah, SearchableAyah } from "./types";
 import { normalizeArabic } from "./utils";
+import { QuranSearch } from "./QuranSearch";
 
 class QuranDataService {
   private static instance: QuranDataService;
   private ayahs: IndexedAyah[] | null = null;
+  private searchService: QuranSearch | null = null;
 
   private constructor() {}
 
@@ -12,6 +14,13 @@ class QuranDataService {
       QuranDataService.instance = new QuranDataService();
     }
     return QuranDataService.instance;
+  }
+
+  public async getSearchService(): Promise<QuranSearch> {
+    if (this.searchService) return this.searchService;
+    const ayahs = await this.getAyahs();
+    this.searchService = new QuranSearch(ayahs);
+    return this.searchService;
   }
 
   public async getAyahs(): Promise<IndexedAyah[]> {
