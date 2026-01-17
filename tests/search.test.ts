@@ -64,13 +64,16 @@ describe("Search Utils", () => {
 
     it("respects result limit", () => {
       // Create a larger mock dataset
-      const largeMockAyahs: IndexedAyah[] = Array.from({ length: 100 }, (_, i) => ({
-        surah_id: 1,
-        ayah_id: i + 1,
-        text: `Test ayah ${i + 1}`,
-        surah_name: "Test",
-        normalized_text: `test ayah ${i + 1}`,
-      }));
+      const largeMockAyahs: IndexedAyah[] = Array.from(
+        { length: 100 },
+        (_, i) => ({
+          surah_id: 1,
+          ayah_id: i + 1,
+          text: `Test ayah ${i + 1}`,
+          surah_name: "Test",
+          normalized_text: `test ayah ${i + 1}`,
+        }),
+      );
 
       const results = searchAyahs("test", largeMockAyahs, 10);
       expect(results).toHaveLength(10);

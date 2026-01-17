@@ -18,12 +18,8 @@ export function searchAyahs(
   const isNumericQuery = /^\d+$/.test(query.trim());
 
   const results = isNumericQuery
-    ? allAyahs.filter((ayah) =>
-        ayah.ayah_id.toString().includes(query.trim()),
-      )
-    : allAyahs.filter((ayah) =>
-        ayah.normalized_text.includes(normalizedQuery),
-      );
+    ? allAyahs.filter((ayah) => ayah.ayah_id.toString().includes(query.trim()))
+    : allAyahs.filter((ayah) => ayah.normalized_text.includes(normalizedQuery));
 
   return results.slice(0, limit);
 }
