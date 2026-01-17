@@ -69,7 +69,15 @@ export class FzfAyahModal extends SuggestModal<IndexedAyah> {
         content = `> [!${type}] ${ayah.surah_name} - ${ayah.ayah_id}\n> ${ayah.text}\n\n`;
       }
 
-      editor.replaceRange(content, editor.getCursor());
+      const cursor = editor.getCursor();
+      editor.replaceRange(content, cursor);
+
+      const lines = content.split("\n");
+      const lastLine = lines[lines.length - 1] || "";
+      editor.setCursor({
+        line: cursor.line + lines.length - 1,
+        ch: lastLine.length,
+      });
     } catch (error) {
       console.error("Failed to insert ayah:", error);
       new Notice("Error: Failed to insert ayah. Please try again.");
