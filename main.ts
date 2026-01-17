@@ -1,5 +1,6 @@
 import { Plugin } from "obsidian";
 import { FzfAyahModal } from "src/FzfAyahModal";
+import { FzfSurahModal } from "src/FzfSurahModal";
 import { QuranHelperSettings, DEFAULT_SETTINGS } from "src/types";
 import { QuranHelperSettingTab } from "src/QuranHelperSettingTab";
 
@@ -14,11 +15,24 @@ export default class QuranHelper extends Plugin {
       new FzfAyahModal(this.app, this).open();
     });
 
+    // creates an icon for inserting entire surah
+    this.addRibbonIcon("book-copy", "Insert Surah", () => {
+      new FzfSurahModal(this.app, this).open();
+    });
+
     this.addCommand({
       id: "open-fzf-quran-modal",
       name: "Add Ayah",
       callback: () => {
         new FzfAyahModal(this.app, this).open();
+      },
+    });
+
+    this.addCommand({
+      id: "open-fzf-quran-surah-modal",
+      name: "Add Surah",
+      callback: () => {
+        new FzfSurahModal(this.app, this).open();
       },
     });
 

@@ -9,6 +9,18 @@ export interface IndexedAyah extends SearchableAyah {
   normalized_text: string;
 }
 
+export interface SearchableSurah {
+  id: number;
+  name: string;
+  transliteration: string;
+  type: string;
+  total_verses: number;
+}
+
+export interface IndexedSurah extends SearchableSurah {
+  normalized_name: string;
+}
+
 export interface QuranHelperSettings {
   outputFormat: "blockquote" | "callout";
   calloutType: string;
