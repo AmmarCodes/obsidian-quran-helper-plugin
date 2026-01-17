@@ -57,6 +57,19 @@ describe("Search Utils", () => {
       expect(firstResult?.text).toContain("الْحَمْدُ");
     });
 
+    it("handles partial word matches (e.g. 'عس ربك' -> 'عسى ربكم')", () => {
+      // Add a specific mock ayah for this test if needed, or use existing if applicable.
+      // "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ"
+      // Query "الحمد لله" -> matches
+      // Query "الحم لله" -> should match "الحمد لله"
+
+      const results = searchAyahs("الحم لله", mockAyahs);
+      expect(results.length).toBeGreaterThan(0);
+      const firstResult = results[0];
+      expect(firstResult).toBeDefined();
+      expect(firstResult?.text).toContain("الْحَمْدُ");
+    });
+
     it("handles empty queries", () => {
       const results = searchAyahs("", mockAyahs);
       expect(results).toHaveLength(3); // All 3 mock ayahs
