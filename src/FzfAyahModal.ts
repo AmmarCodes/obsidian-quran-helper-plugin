@@ -3,12 +3,15 @@ import { quranDataService } from "./QuranDataService";
 import { searchAyahs } from "./searchUtils";
 import { IndexedAyah } from "./types";
 import { INITIAL_AYAHS } from "./initialAyahs";
+import QuranHelper from "../main";
 
 export class FzfAyahModal extends SuggestModal<IndexedAyah> {
   private allAyahs: IndexedAyah[] = INITIAL_AYAHS;
+  private plugin: QuranHelper;
 
-  constructor(app: App) {
+  constructor(app: App, plugin: QuranHelper) {
     super(app);
+    this.plugin = plugin;
   }
 
   async onOpen() {
@@ -55,11 +58,17 @@ export class FzfAyahModal extends SuggestModal<IndexedAyah> {
     }
 
     try {
-      const content = `
-> [!quran] ${ayah.surah_name} - ${ayah.ayah_id}
-> ${ayah.text}
+      const { outputFormat, calloutType } = this.plugin.settings;
+      let content = "";
 
-`;
+      if (outputFormat === "blockquote") {
+        content = `> ${ayah.text}\n> — ${ayah.surah_name} - ${ayah.ayah_id}\n\n`;
+      } else {
+        // Callout format
+        const type = calloutType || "quran";
+        content = `> [!${type}] ${ayah.surah_name} - ${ayah.ayah_id}\n> ${ayah.text}\n\n`;
+      }
+
       editor.replaceRange(content, editor.getCursor());
     } catch (error) {
       console.error("Failed to insert ayah:", error);
