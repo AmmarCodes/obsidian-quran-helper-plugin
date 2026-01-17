@@ -1,39 +1,39 @@
-# Quran Helper Plugin
+# إضافة Quran Helper
 
-Obsidian plugin that helps you find and insert Quran Ayahs (verses) into your notes.
+إضافة لـ Obsidian يساعدك على العثور على إدراج آيات القرآن في ملاحظاتك.
 
-| Rendered Ayah                                            | Fuzzy Search (fzf)                                     |
-| -------------------------------------------------------- | ------------------------------------------------------ |
-| ![rendering the Ayah](./assets/screenshots/rendered.png) | ![Fuzzy finding Ayah](./assets/screenshots/search.png) |
+| البحث بمطابقة جزئية (Fuzzy find)                       | الآيات المعروضة                                          |
+| ------------------------------------------------------ | -------------------------------------------------------- |
+| ![Fuzzy finding Ayah](./assets/screenshots/search.png) | ![rendering the Ayah](./assets/screenshots/rendered.png) |
 
-## Features
+## الميزات
 
-- Add Ayahs directly into your notes.
-- Fuzzy search for Ayah.
-- No internet connection required.
+- إضافة الآيات مباشرةً في ملاحظاتك.
+- البحث بمطابقة جزئية عن الآيات.
+- لا يتطلب اتصالاً بالإنترنت.
 
-## Installation
+## التثبيت
 
-You can install the plugin directly from the [community plugins](https://obsidian.md/plugins?id=quran-helper).
+يمكن تثبيت الإضافة مباشرةً من [community plugins](https://obsidian.md/plugins?id=quran-helper).
 
-1. Open the Obsidian settings.
-2. Navigate to `Community plugins`.
-3. Search for `Quran Helper`.
-4. Click `Install` and then `Enable`.
+1. افتح إعدادات Obsidian
+2. انتقل إلى `Community plugins`
+3. ابحث عن `Quran Helper`
+4. انقر على `Install` ثم `Enable`
 
-## Usage
+## الاستخدام
 
-- Open the Quran modal by clicking the book icon in the ribbon
-  - Or selecting the `Quran: Add Ayah` command from the [Command Palette](https://help.obsidian.md/Plugins/Command+palette).
-- Search for the desired Ayah (you can write partial letters or words to match the Ayah you're looking for)
-- Press <kbd>Enter</kbd> to insert the Ayah to your note
+- افتح نافذة القرآن عن طريق النقر على أيقونة الكتاب في الشريط الجانبي ([Ribbon](https://help.obsidian.md/ribbon))
+  - أو عن طريق اختيار الأمر `Quran: Add Ayah` من [Command Palette](https://help.obsidian.md/Plugins/Command+palette)
+- ابحث عن الآية المطلوبة (يمكنك كتابة حروف أو كلمات جزئية للعثور على الآية التي تبحث عنها)
+- اضغط <kbd>Enter</kbd> لإدراج الآية في ملاحظتك
 
-## Differences from [Obsidian Quran Lookup Plugin](https://github.com/abuibrahim2/quranlookup)
+## الاختلاف عن إضافة [Obsidian Quran Lookup Plugin](https://github.com/abuibrahim2/quranlookup)
 
-- Does not require `Surah:Ayah` format.
-- Does not require an internet connection.
-- Allows for fuzzy searching of Ayah content.
+- هذه الإضافة لا تتطلب تنسيق `Surah:Ayah`
+- هذه الإضافة لا يتطلب اتصالاً بالإنترنت
+- يمكنك البحث بمطابقة جزئية في محتوى الآيات
 
-## Credits
+## مصادر
 
-The plugin uses the [quran-json](https://github.com/risan/quran-json).
+الإضافة تستخدم [quran-json](https://github.com/risan/quran-json).
