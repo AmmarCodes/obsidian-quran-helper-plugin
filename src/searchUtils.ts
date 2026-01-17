@@ -17,18 +17,39 @@ export function searchAyahs(
   // Check if query is purely numeric using regex
   const isNumericQuery = /^\d+$/.test(query.trim());
 
-  let results: IndexedAyah[];
+  const results: IndexedAyah[] = [];
+  const queryTerms = isNumericQuery
+    ? []
+    : normalizedQuery.split(/\s+/).filter((t) => t.length > 0);
 
-  if (isNumericQuery) {
-    results = allAyahs.filter((ayah) =>
-      ayah.ayah_id.toString().includes(query.trim()),
-    );
-  } else {
-    const queryTerms = normalizedQuery.split(/\s+/).filter((t) => t.length > 0);
-    results = allAyahs.filter((ayah) =>
-      queryTerms.every((term) => ayah.normalized_text.includes(term)),
-    );
+  for (const ayah of allAyahs) {
+    if (results.length >= limit) {
+      break;
+    }
+
+    let isMatch = false;
+    if (isNumericQuery) {
+      if (ayah.ayah_id.toString().includes(query.trim())) {
+        isMatch = true;
+      }
+    } else {
+      // Check if all terms are present in the ayah
+      let allTermsMatch = true;
+      for (const term of queryTerms) {
+        if (!ayah.normalized_text.includes(term)) {
+          allTermsMatch = false;
+          break;
+        }
+      }
+      if (allTermsMatch) {
+        isMatch = true;
+      }
+    }
+
+    if (isMatch) {
+      results.push(ayah);
+    }
   }
 
-  return results.slice(0, limit);
+  return results;
 }
