@@ -2,9 +2,9 @@
 
 إضافة لـ Obsidian يساعدك على العثور على إدراج آيات القرآن في ملاحظاتك.
 
-| الآيات بعد إضافتها                                       | البحث بمطابقة جزئية (Fuzzy find)                       | البدء بإضافة آية                                                                                                                                     |
-| -------------------------------------------------------- | ------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ![rendering the Ayah](./assets/screenshots/rendered.png) | ![Fuzzy finding Ayah](./assets/screenshots/search.png) | ![Add Ayah through command palette](./assets/screenshots/command-palette.png) <br>أو<br> ![Add Ayah through ribbon](./assets/screenshots/ribbon.png) |
+| الآيات بعد إضافتها                                       | البحث بمطابقة جزئية (Fuzzy find)                       | البدء بإضافة آية                                                                                                                                                                                                       |
+| -------------------------------------------------------- | ------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ![rendering the Ayah](./assets/screenshots/rendered.png) | ![Fuzzy finding Ayah](./assets/screenshots/search.png) | اضغط <kbd>CTRL</kbd> مع <kbd>P</kbd> ثم اختر<br>![Add Ayah through command palette](./assets/screenshots/command-palette.png) <br>أو من الشريط الجانبي<br> ![Add Ayah through ribbon](./assets/screenshots/ribbon.png) |
 
 ## الميزات
 
@@ -31,8 +31,8 @@
 ## الاختلاف عن إضافة [Obsidian Quran Lookup Plugin](https://github.com/abuibrahim2/quranlookup)
 
 - هذه الإضافة لا تتطلب تنسيق `Surah:Ayah`
-- هذه الإضافة لا يتطلب اتصالاً بالإنترنت
-- يمكنك البحث بمطابقة جزئية في محتوى الآيات
+- لا يتطلب اتصالاً بالإنترنت
+- يمكن البحث بمطابقة جزئية في محتوى الآيات
 
 ## مصادر
 

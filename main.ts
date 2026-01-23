@@ -11,18 +11,18 @@ export default class QuranHelper extends Plugin {
     await this.loadSettings();
 
     // creates an icon in the left ribbon.
-    this.addRibbonIcon("book-open", "Insert Ayah", () => {
+    this.addRibbonIcon("book-open", "Insert Ayah (إدراج آية)", () => {
       new FzfAyahModal(this.app, this).open();
     });
 
     // creates an icon for inserting entire surah
-    this.addRibbonIcon("book-copy", "Insert Surah", () => {
+    this.addRibbonIcon("book-copy", "Insert Surah (إدراج سورة)", () => {
       new FzfSurahModal(this.app, this).open();
     });
 
     this.addCommand({
       id: "open-fzf-quran-modal",
-      name: "Add Ayah",
+      name: "Insert Ayah (إدراج آية)",
       callback: () => {
         new FzfAyahModal(this.app, this).open();
       },
@@ -30,7 +30,7 @@ export default class QuranHelper extends Plugin {
 
     this.addCommand({
       id: "open-fzf-quran-surah-modal",
-      name: "Add Surah",
+      name: "Insert Surah (إدراج سورة)",
       callback: () => {
         new FzfSurahModal(this.app, this).open();
       },
