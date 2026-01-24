@@ -1,12 +1,18 @@
-@import url("https://fonts.googleapis.com/css2?family=Scheherazade+New:wght500;700&display=swap");
+@font-face {
+  font-family: "qpc-hafs";
+  src: url("https://static-cdn.tarteel.ai/qul/fonts/UthmanicHafs_V22.ttf")
+    format("truetype");
+  font-display: swap;
+  size-adjust: 120%;
+}
 
 .callout[data-callout="quran"] {
   --callout-color: var(--color-green-rgb, (40, 105, 131));
   --callout-icon: lucide-book-open-text;
 
   .callout-content {
-    font-family: "Scheherazade New", var(--font-text);
-    font-weight: 500;
-    font-size: large;
+    font-family: qpc-hafs;
+    font-weight: normal;
+    line-height: 2rem;
   }
 }
