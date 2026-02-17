@@ -24,9 +24,19 @@ export interface IndexedSurah extends SearchableSurah {
 export interface QuranHelperSettings {
   outputFormat: "blockquote" | "callout";
   calloutType: string;
+  ayahNoteFolder: string;
+  ayahNotePathPattern:
+    | "surah-ayah"
+    | "surah/ayah"
+    | "arabic-ayah"
+    | "arabic/ayah";
+  ayahNoteTags: string;
 }
 
 export const DEFAULT_SETTINGS: QuranHelperSettings = {
   outputFormat: "callout",
   calloutType: "quran",
+  ayahNoteFolder: "",
+  ayahNotePathPattern: "surah-ayah",
+  ayahNoteTags: "quran",
 };
