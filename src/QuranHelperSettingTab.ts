@@ -66,14 +66,17 @@ export class QuranHelperSettingTab extends PluginSettingTab {
     new Setting(containerEl)
       .setName("Ayah Note Folder")
       .setDesc("The folder where Ayah notes will be created")
-      .addSearch((search) => {
-        search
+      .addText((text) => {
+        text
           .setPlaceholder("Example: Quran/Notes")
           .setValue(this.plugin.settings.ayahNoteFolder)
           .onChange(async (value) => {
             this.plugin.settings.ayahNoteFolder = value;
             await this.plugin.saveSettings();
           });
+      })
+      .addExtraButton((button) => {
+        button.setIcon("folder").setTooltip("Ayah note destination folder");
       });
 
     new Setting(containerEl)
