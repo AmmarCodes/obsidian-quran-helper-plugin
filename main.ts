@@ -38,9 +38,15 @@ export default class QuranHelper extends Plugin {
 
     this.addSettingTab(new QuranHelperSettingTab(this.app, this));
 
-    this.addRibbonIcon("file-plus", "Create Ayah Note (إنشاء ملاحظة آية)", () => {
-      new FzfAyahModal(this.app, this, (ayah) => this.createAyahNote(ayah)).open();
-    });
+    this.addRibbonIcon(
+      "file-plus",
+      "Create Ayah Note (إنشاء ملاحظة آية)",
+      () => {
+        new FzfAyahModal(this.app, this, (ayah) =>
+          this.createAyahNote(ayah),
+        ).open();
+      },
+    );
 
     this.addCommand({
       id: "create-ayah-note",
