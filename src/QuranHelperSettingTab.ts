@@ -66,6 +66,7 @@ export class QuranHelperSettingTab extends PluginSettingTab {
     new Setting(containerEl)
       .setName("Ayah Note Folder")
       .setDesc("The folder where Ayah notes will be created")
+      .setClass("quran-folder-setting")
       .addText((text) => {
         text
           .setPlaceholder("Example: Quran/Notes")
@@ -76,7 +77,7 @@ export class QuranHelperSettingTab extends PluginSettingTab {
           });
       })
       .addExtraButton((button) => {
-        button.setIcon("folder").setTooltip("Ayah note destination folder");
+        button.setIcon("folder");
       });
 
     new Setting(containerEl)
@@ -99,17 +100,5 @@ export class QuranHelperSettingTab extends PluginSettingTab {
           }),
       );
 
-    new Setting(containerEl)
-      .setName("Ayah Note Tags")
-      .setDesc("Tags to be added to the Ayah note (comma separated)")
-      .addText((text) =>
-        text
-          .setPlaceholder("quran, study")
-          .setValue(this.plugin.settings.ayahNoteTags)
-          .onChange(async (value) => {
-            this.plugin.settings.ayahNoteTags = value;
-            await this.plugin.saveSettings();
-          }),
-      );
   }
 }

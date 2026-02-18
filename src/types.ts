@@ -30,7 +30,6 @@ export interface QuranHelperSettings {
     | "surah/ayah"
     | "arabic-ayah"
     | "arabic/ayah";
-  ayahNoteTags: string;
 }
 
 export const DEFAULT_SETTINGS: QuranHelperSettings = {
@@ -38,5 +37,4 @@ export const DEFAULT_SETTINGS: QuranHelperSettings = {
   calloutType: "quran",
   ayahNoteFolder: "",
   ayahNotePathPattern: "surah-ayah",
-  ayahNoteTags: "quran",
 };
