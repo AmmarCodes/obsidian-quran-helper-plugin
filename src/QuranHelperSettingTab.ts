@@ -99,6 +99,5 @@ export class QuranHelperSettingTab extends PluginSettingTab {
             await this.plugin.saveSettings();
           }),
       );
-
   }
 }
