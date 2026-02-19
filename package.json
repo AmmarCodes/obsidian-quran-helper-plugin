@@ -7,7 +7,8 @@
     "dev": "node esbuild.config.mjs",
     "prettier:ci": "./node_modules/.bin/prettier --check main.ts src/**/*.ts tests/**/*.ts",
     "prettier:fix": "./node_modules/.bin/prettier --write main.ts src/**/*.ts tests/**/*.ts",
-    "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+    "normalize": "node --import tsx scripts/normalize_text.ts",
+    "build": "npm run normalize && tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
     "version": "node version-bump.mjs && git add manifest.json versions.json",
     "test": "jest"
   },
@@ -28,6 +29,7 @@
     "obsidian": "^1.11.0",
     "ts-jest": "^29.4.6",
     "tslib": "2.4.0",
+    "tsx": "^4.21.0",
     "typescript": "4.7.4"
   },
   "dependencies": {

@@ -49,10 +49,13 @@ class QuranDataService {
           );
         }
 
-        return {
-          ...ayah,
-          normalized_text: normalizeArabic(ayah.text),
-        };
+        if (!ayah.normalized_text) {
+          return {
+            ...ayah,
+            normalized_text: normalizeArabic(ayah.text),
+          };
+        }
+        return ayah as IndexedAyah;
       });
 
       return this.ayahs;
