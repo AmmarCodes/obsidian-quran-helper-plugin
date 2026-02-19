@@ -3,6 +3,7 @@ export interface SearchableAyah {
   ayah_id: number;
   text: string;
   surah_name: string;
+  surah_name_en: string;
 }
 
 export interface IndexedAyah extends SearchableAyah {
