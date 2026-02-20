@@ -16,3 +16,27 @@
     line-height: 2rem;
   }
 }
+
+/* Ayah (verse) callout */
+.callout[data-callout='quran-ayah'] {
+  --callout-color: var(--color-green-rgb, (40, 105, 131));
+  --callout-icon: quran-ayah;
+  
+  .callout-content {
+    font-family: qpc-hafs;
+    font-weight: normal;
+    line-height: 2rem;
+  }
+}
+
+/* Surah (chapter) callout */
+.callout[data-callout='quran-surah'] {
+  --callout-color: var(--color-green-rgb, (40, 105, 131));
+  --callout-icon: quran-surah;
+
+  .callout-content {
+    font-family: qpc-hafs;
+    font-weight: normal;
+    line-height: 2rem;
+  }
+}
