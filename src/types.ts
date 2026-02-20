@@ -4,6 +4,7 @@ export interface SearchableAyah {
   text: string;
   surah_name: string;
   normalized_text?: string;
+  surah_name_en: string;
 }
 
 export interface IndexedAyah extends SearchableAyah {
@@ -25,9 +26,17 @@ export interface IndexedSurah extends SearchableSurah {
 export interface QuranHelperSettings {
   outputFormat: "blockquote" | "callout";
   calloutType: string;
+  ayahNoteFolder: string;
+  ayahNotePathPattern:
+    | "surah-ayah"
+    | "surah/ayah"
+    | "arabic-ayah"
+    | "arabic/ayah";
 }
 
 export const DEFAULT_SETTINGS: QuranHelperSettings = {
   outputFormat: "callout",
   calloutType: "quran",
+  ayahNoteFolder: "",
+  ayahNotePathPattern: "surah-ayah",
 };

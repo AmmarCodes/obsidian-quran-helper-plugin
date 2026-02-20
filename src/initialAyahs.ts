@@ -156,5 +156,6 @@ const rawAyahs = [
 
 export const INITIAL_AYAHS: IndexedAyah[] = rawAyahs.map((ayah) => ({
   ...ayah,
+  surah_name_en: ayah.surah_id === 1 ? "Al-Fatihah" : "Al-Baqarah",
   normalized_text: normalizeArabic(ayah.text),
 }));
