@@ -40,3 +40,22 @@
     line-height: 2rem;
   }
 }
+.quran-folder-setting .setting-item-control {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.quran-folder-setting input[type="text"] {
+  padding-right: 35px;
+}
+
+.quran-folder-setting .extra-setting-button {
+  position: absolute;
+  right: 5px;
+  background: transparent;
+  pointer-events: none;
+  border: none;
+  box-shadow: none;
+  opacity: 0.6;
+}
