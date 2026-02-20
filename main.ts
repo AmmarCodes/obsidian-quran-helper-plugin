@@ -114,7 +114,7 @@ export default class QuranHelper extends Plugin {
       .trim()
       .replace(/[\\/:*?"<>|]/g, "-")
       .replace(/\s+/g, " ")
-      .replace(/[. ]+$/g, "");
+      .replace(/(\s|\.)+$/, "");
   }
 
   async ensureFolderExists(path: string) {
