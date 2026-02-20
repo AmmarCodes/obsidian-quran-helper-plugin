@@ -2,24 +2,24 @@ import { QuranSearch } from "../src/QuranSearch";
 import { IndexedAyah, SearchableAyah } from "../src/types";
 import { normalizeArabic } from "../src/utils";
 
-// Mock Data
+// Mock Data (QPC Hafs script)
 const mockFlatAyahs: SearchableAyah[] = [
   {
     surah_id: 1,
     ayah_id: 1,
-    text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+    text: "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ",
     surah_name: "الفاتحة",
   },
   {
     surah_id: 1,
     ayah_id: 2,
-    text: "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ",
+    text: "ٱلۡحَمۡدُ لِلَّهِ رَبِّ ٱلۡعَٰلَمِينَ",
     surah_name: "الفاتحة",
   },
   {
     surah_id: 112,
     ayah_id: 1,
-    text: "قُلْ هُوَ اللَّهُ أَحَدٌ",
+    text: "قُلۡ هُوَ ٱللَّهُ أَحَدٌ",
     surah_name: "الإخلاص",
   },
 ];
@@ -59,11 +59,11 @@ describe("QuranSearch (Inverted Index)", () => {
     expect(results).toHaveLength(1);
     const firstResult = results[0];
     expect(firstResult).toBeDefined();
-    expect(firstResult?.text).toContain("الْحَمْدُ");
+    expect(firstResult?.text).toContain("ٱلۡحَمۡدُ");
   });
 
   it("handles partial word matches (e.g. 'عس ربك' -> 'عسى ربكم')", () => {
-    // "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ"
+    // "ٱلۡحَمۡدُ لِلَّهِ رَبِّ ٱلۡعَٰلَمِينَ"
     // Query "الحمد لله" -> matches
     // Query "الحم لله" -> should match "الحمد لله"
 
@@ -71,7 +71,7 @@ describe("QuranSearch (Inverted Index)", () => {
     expect(results.length).toBeGreaterThan(0);
     const firstResult = results[0];
     expect(firstResult).toBeDefined();
-    expect(firstResult?.text).toContain("الْحَمْدُ");
+    expect(firstResult?.text).toContain("ٱلۡحَمۡدُ");
   });
 
   it("handles empty queries", () => {
