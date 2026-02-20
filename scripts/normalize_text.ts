@@ -13,7 +13,7 @@ function generateNormalizedAyahs() {
     normalized_text: normalizeArabic(ayah.text),
   }));
 
-  fs.writeFileSync(file, JSON.stringify(indexedAyahs, null, 2), "utf-8");
+  fs.writeFileSync(file, JSON.stringify(indexedAyahs), "utf-8");
 }
 
 generateNormalizedAyahs();
