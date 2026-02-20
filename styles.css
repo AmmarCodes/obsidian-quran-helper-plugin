@@ -16,3 +16,9 @@
     line-height: 2rem;
   }
 }
+
+.suggestion-item [dir="rtl"] {
+  font-family: qpc-hafs;
+  font-weight: normal;
+  line-height: 2rem;
+}
