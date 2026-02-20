@@ -6,6 +6,7 @@ class QuranDataService {
   private static instance: QuranDataService;
   private ayahs: IndexedAyah[] | null = null;
   private searchService: QuranSearch | null = null;
+  private pageMap: Map<number, IndexedAyah[]> | null = null;
 
   private constructor() {}
 
@@ -25,9 +26,10 @@ class QuranDataService {
 
   public async getAyahs(): Promise<IndexedAyah[]> {
     if (this.ayahs) return this.ayahs;
+    
 
     try {
-      const data = await import("./ayahs.json");
+      const data = await import("./ayahs_v2.json"); // Adjust the path as needed
       const rawAyahs = (data.default || data) as unknown as SearchableAyah[];
 
       // Validate data structure
@@ -42,7 +44,8 @@ class QuranDataService {
           typeof ayah.text !== "string" ||
           typeof ayah.surah_name !== "string" ||
           typeof ayah.ayah_id !== "number" ||
-          typeof ayah.surah_id !== "number"
+          typeof ayah.surah_id !== "number" ||
+          typeof ayah.page !== "number"
         ) {
           throw new Error(
             `Invalid ayah data at index ${index}: missing required fields`,
@@ -60,6 +63,27 @@ class QuranDataService {
       console.error("Failed to load ayahs:", error);
       throw error; // Re-throw so caller can handle
     }
+  }
+
+  public async getPageMap(): Promise<Map<number, IndexedAyah[]>> {
+    if (this.pageMap) return this.pageMap;
+    const ayahs = await this.getAyahs();
+    const map = new Map<number, IndexedAyah[]>();
+    for (const ayah of ayahs) {
+      const bucket = map.get(ayah.page);
+      if (bucket) {
+        bucket.push(ayah);
+      } else {
+        map.set(ayah.page, [ayah]);
+      }
+    }
+    this.pageMap = map;
+    return map;
+  }
+
+  public async getAyahsByPage(pageNumber: number): Promise<IndexedAyah[]> {
+    const map = await this.getPageMap();
+    return map.get(pageNumber) ?? [];
   }
 }
 
