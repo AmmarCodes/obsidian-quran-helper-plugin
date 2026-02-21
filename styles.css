@@ -17,10 +17,6 @@
   }
 }
 
-.suggestion-item [dir="rtl"] {
-  font-family: qpc-hafs;
-  font-weight: normal;
-  line-height: 2rem;
 .quran-folder-setting .setting-item-control {
   position: relative;
   display: flex;
