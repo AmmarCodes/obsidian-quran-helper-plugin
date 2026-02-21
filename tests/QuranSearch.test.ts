@@ -7,6 +7,7 @@ const mockFlatAyahs: SearchableAyah[] = [
   {
     surah_id: 1,
     ayah_id: 1,
+    page: 1,
     text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
     surah_name: "الفاتحة",
     surah_name_en: "Al-Fatihah",
@@ -14,6 +15,7 @@ const mockFlatAyahs: SearchableAyah[] = [
   {
     surah_id: 1,
     ayah_id: 2,
+    page: 1,
     text: "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ",
     surah_name: "الفاتحة",
     surah_name_en: "Al-Fatihah",
@@ -21,6 +23,7 @@ const mockFlatAyahs: SearchableAyah[] = [
   {
     surah_id: 112,
     ayah_id: 1,
+    page: 604,
     text: "قُلْ هُوَ اللَّهُ أَحَدٌ",
     surah_name: "الإخلاص",
     surah_name_en: "Al-Ikhlas",
@@ -89,6 +92,7 @@ describe("QuranSearch (Inverted Index)", () => {
       (_, i) => ({
         surah_id: 1,
         ayah_id: i + 1,
+        page: 1,
         text: `Test ayah ${i + 1}`,
         surah_name: "Test",
         surah_name_en: "Test",

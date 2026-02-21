@@ -4,6 +4,7 @@ export interface SearchableAyah {
   text: string;
   surah_name: string;
   surah_name_en: string;
+  page: number;
 }
 
 export interface IndexedAyah extends SearchableAyah {
@@ -20,6 +21,11 @@ export interface SearchableSurah {
 
 export interface IndexedSurah extends SearchableSurah {
   normalized_name: string;
+}
+
+export interface PageEntry {
+  page: number;
+  ayahs: IndexedAyah[];
 }
 
 export interface QuranHelperSettings {

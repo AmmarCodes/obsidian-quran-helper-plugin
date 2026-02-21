@@ -1,6 +1,7 @@
 import { Notice, normalizePath, Plugin, TFolder } from "obsidian";
 import { FzfAyahModal } from "src/FzfAyahModal";
 import { FzfSurahModal } from "src/FzfSurahModal";
+import { FzfPageModal } from "src/FzfPageModal";
 import { QuranHelperSettings, DEFAULT_SETTINGS, IndexedAyah } from "src/types";
 import { QuranHelperSettingTab } from "src/QuranHelperSettingTab";
 
@@ -20,6 +21,11 @@ export default class QuranHelper extends Plugin {
       new FzfSurahModal(this.app, this).open();
     });
 
+    // creates an icon for inserting by page
+    this.addRibbonIcon("book-marked", "Insert Page (إدراج صفحة)", () => {
+      new FzfPageModal(this.app, this).open();
+    });
+
     this.addCommand({
       id: "open-fzf-quran-modal",
       name: "Insert Ayah (إدراج آية)",
@@ -33,6 +39,14 @@ export default class QuranHelper extends Plugin {
       name: "Insert Surah (إدراج سورة)",
       callback: () => {
         new FzfSurahModal(this.app, this).open();
+      },
+    });
+
+    this.addCommand({
+      id: "open-fzf-quran-page-modal",
+      name: "Insert Page (إدراج صفحة)",
+      callback: () => {
+        new FzfPageModal(this.app, this).open();
       },
     });
 
