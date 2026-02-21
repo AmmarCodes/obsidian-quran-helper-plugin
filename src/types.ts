@@ -3,6 +3,7 @@ export interface SearchableAyah {
   ayah_id: number;
   text: string;
   surah_name: string;
+  normalized_text?: string;
   surah_name_en: string;
 }
 
@@ -35,7 +36,7 @@ export interface QuranHelperSettings {
 
 export const DEFAULT_SETTINGS: QuranHelperSettings = {
   outputFormat: "callout",
-  calloutType: "quran",
+  calloutType: "quran-ayah",
   ayahNoteFolder: "",
   ayahNotePathPattern: "surah-ayah",
 };

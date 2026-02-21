@@ -53,11 +53,19 @@ class QuranDataService {
           );
         }
 
-        return {
+        const enrichedAyah = {
           ...ayah,
           surah_name_en: surahMap.get(ayah.surah_id) || "",
-          normalized_text: normalizeArabic(ayah.text),
         };
+
+        if (!enrichedAyah.normalized_text) {
+          return {
+            ...enrichedAyah,
+            normalized_text: normalizeArabic(enrichedAyah.text),
+          };
+        }
+
+        return enrichedAyah as IndexedAyah;
       });
 
       return this.ayahs;
