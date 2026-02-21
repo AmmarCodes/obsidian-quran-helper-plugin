@@ -6,40 +6,6 @@
   size-adjust: 120%;
 }
 
-.callout[data-callout="quran"] {
-  --callout-color: var(--color-green-rgb, (40, 105, 131));
-  --callout-icon: lucide-book-open-text;
-
-  .callout-content {
-    font-family: qpc-hafs;
-    font-weight: normal;
-    line-height: 2rem;
-  }
-}
-
-/* Ayah (verse) callout */
-.callout[data-callout='quran-ayah'] {
-  --callout-color: var(--color-green-rgb, (40, 105, 131));
-  --callout-icon: quran-ayah;
-  
-  .callout-content {
-    font-family: qpc-hafs;
-    font-weight: normal;
-    line-height: 2rem;
-  }
-}
-
-/* Surah (chapter) callout */
-.callout[data-callout='quran-surah'] {
-  --callout-color: var(--color-green-rgb, (40, 105, 131));
-  --callout-icon: quran-surah;
-
-  .callout-content {
-    font-family: qpc-hafs;
-    font-weight: normal;
-    line-height: 2rem;
-  }
-}
 .callout[data-callout*="quran"] {
   --callout-color: var(--color-green-rgb, (40, 105, 131));
   .callout-content {
@@ -60,6 +26,7 @@
 .callout[data-callout="quran-surah"] {
   --callout-icon: quran-surah;
 }
+
 .quran-folder-setting .setting-item-control {
   position: relative;
   display: flex;
