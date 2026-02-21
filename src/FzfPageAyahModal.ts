@@ -97,8 +97,9 @@ export class FzfPageAyahModal extends SuggestModal<PageAyahItem> {
     }
 
     const { outputFormat, calloutType } = this.plugin.settings;
-    const first = ayahs[0]!;
-    const last = ayahs[ayahs.length - 1]!;
+    const first = ayahs.at(0);
+    const last = ayahs.at(-1);
+    if (!first || !last) return;
     const header = `الصفحة ${this.entry.page} — ${first.surah_name} (${first.ayah_id}) إلى ${last.surah_name} (${last.ayah_id})`;
 
     let content = "";

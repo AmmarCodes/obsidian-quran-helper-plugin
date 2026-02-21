@@ -27,7 +27,6 @@ class QuranDataService {
 
   public async getAyahs(): Promise<IndexedAyah[]> {
     if (this.ayahs) return this.ayahs;
-    
 
     try {
       const data = await import("./ayahs.json"); // Adjust the path as needed

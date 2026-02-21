@@ -35,8 +35,9 @@ export class FzfPageModal extends SuggestModal<PageEntry> {
   }
 
   renderSuggestion(entry: PageEntry, el: HTMLElement) {
-    const first = entry.ayahs[0]!;
-    const last = entry.ayahs[entry.ayahs.length - 1]!;
+    const first = entry.ayahs.at(0);
+    const last = entry.ayahs.at(-1);
+    if (!first || !last) return;
 
     el.createEl("div", {
       text: `الصفحة ${entry.page}  —  ${entry.ayahs.length} آية`,
