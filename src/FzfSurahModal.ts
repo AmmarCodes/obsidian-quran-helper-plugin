@@ -1,4 +1,5 @@
 import { App, MarkdownView, Notice, SuggestModal } from "obsidian";
+import { quranDataService } from "./QuranDataService";
 import { surahDataService } from "./SurahDataService";
 import { SurahSearch } from "./SurahSearch";
 import { IndexedSurah } from "./types";
@@ -67,13 +68,11 @@ export class FzfSurahModal extends SuggestModal<IndexedSurah> {
     }
 
     try {
-      // Load full surah data from quran.json
-      const quranData = await import("./quran.json");
-      const fullSurah = (quranData.default || quranData).find(
-        (s: any) => s.id === surah.id,
-      );
+      // Load verses for this surah from ayahs data
+      const allAyahs = await quranDataService.getAyahs();
+      const surahAyahs = allAyahs.filter((a) => a.surah_id === surah.id);
 
-      if (!fullSurah || !fullSurah.verses) {
+      if (surahAyahs.length === 0) {
         throw new Error(`Could not find verses for surah ${surah.id}`);
       }
 
@@ -85,8 +84,8 @@ export class FzfSurahModal extends SuggestModal<IndexedSurah> {
         content = `> ## ${surah.name} \n>\n`;
 
         // Verses
-        fullSurah.verses.forEach((verse: any) => {
-          content += `> ${verse.id}. ${verse.text}\n`;
+        surahAyahs.forEach((ayah) => {
+          content += `> ${ayah.ayah_id}. ${ayah.text}\n`;
         });
         content += `>\n\n`;
       } else {
@@ -98,8 +97,8 @@ export class FzfSurahModal extends SuggestModal<IndexedSurah> {
 
         // Verses
         content += "> ";
-        fullSurah.verses.forEach((verse: any) => {
-          content += `${verse.text} (${verse.id}) `;
+        surahAyahs.forEach((ayah) => {
+          content += `${ayah.text} (${ayah.ayah_id}) `;
         });
         content += `\n>\n\n`;
       }
