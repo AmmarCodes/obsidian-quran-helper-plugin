@@ -38,8 +38,16 @@ export class CreateAyahNoteModal extends SuggestModal<IndexedAyah> {
     });
   }
 
-  async onChooseSuggestion(ayah: IndexedAyah, _evt: MouseEvent | KeyboardEvent) {
-    if (!ayah || !ayah.text || !ayah.surah_name || typeof ayah.ayah_id !== "number") {
+  async onChooseSuggestion(
+    ayah: IndexedAyah,
+    _evt: MouseEvent | KeyboardEvent,
+  ) {
+    if (
+      !ayah ||
+      !ayah.text ||
+      !ayah.surah_name ||
+      typeof ayah.ayah_id !== "number"
+    ) {
       new Notice("Error: Invalid ayah data.");
       return;
     }
@@ -61,7 +69,9 @@ export class CreateAyahNoteModal extends SuggestModal<IndexedAyah> {
 
     // Check if file already exists
     if (this.app.vault.getAbstractFileByPath(fullPath)) {
-      new Notice(`Note for ${ayah.surah_name} - ${ayah.ayah_id} already exists.`);
+      new Notice(
+        `Note for ${ayah.surah_name} - ${ayah.ayah_id} already exists.`,
+      );
       const existingFile = this.app.vault.getAbstractFileByPath(fullPath);
       if (existingFile) {
         this.app.workspace.getLeaf().openFile(existingFile as any);
@@ -71,9 +81,14 @@ export class CreateAyahNoteModal extends SuggestModal<IndexedAyah> {
 
     // Prepare content
     const tags = ayahNoteTags
-      ? ayahNoteTags.split(",").map(t => t.trim()).filter(t => t).map(t => `#${t}`).join(" ")
+      ? ayahNoteTags
+          .split(",")
+          .map((t) => t.trim())
+          .filter((t) => t)
+          .map((t) => `#${t}`)
+          .join(" ")
       : "";
-    
+
     const content = `---
 surah: ${ayah.surah_name}
 ayah: ${ayah.ayah_id}

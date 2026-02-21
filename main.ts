@@ -22,9 +22,13 @@ export default class QuranHelper extends Plugin {
     });
 
     // creates an icon for creating ayah note
-    this.addRibbonIcon("file-plus", "Create Ayah Note (إنشاء ملاحظة آية)", () => {
-      new CreateAyahNoteModal(this.app, this).open();
-    });
+    this.addRibbonIcon(
+      "file-plus",
+      "Create Ayah Note (إنشاء ملاحظة آية)",
+      () => {
+        new CreateAyahNoteModal(this.app, this).open();
+      },
+    );
 
     this.addCommand({
       id: "open-fzf-quran-modal",
