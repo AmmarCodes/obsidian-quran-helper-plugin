@@ -14,6 +14,8 @@ export class QuranHelperSettingTab extends PluginSettingTab {
 
     containerEl.empty();
 
+    containerEl.createEl("h2", { text: "General Settings" });
+
     new Setting(containerEl)
       .setName("Output Format")
       .setDesc("Choose how the Ayah should be formatted")
@@ -61,41 +63,30 @@ export class QuranHelperSettingTab extends PluginSettingTab {
         });
     }
 
-    containerEl.createEl("h3", { text: "Ayah Note Settings" });
+    containerEl.createEl("h2", { text: "Ayah Note Settings" });
 
     new Setting(containerEl)
-      .setName("Ayah Note Folder")
+      .setName("Ayah Note Path")
       .setDesc("The folder where Ayah notes will be created")
-      .setClass("quran-folder-setting")
-      .addText((text) => {
+      .addText((text) =>
         text
-          .setPlaceholder("Example: Quran/Notes")
-          .setValue(this.plugin.settings.ayahNoteFolder)
+          .setPlaceholder("Quran Notes")
+          .setValue(this.plugin.settings.ayahNotePath)
           .onChange(async (value) => {
-            this.plugin.settings.ayahNoteFolder = value;
+            this.plugin.settings.ayahNotePath = value;
             await this.plugin.saveSettings();
-          });
-      })
-      .addExtraButton((button) => {
-        button.setIcon("folder");
-      });
+          }),
+      );
 
     new Setting(containerEl)
-      .setName("Ayah Note Path Pattern")
-      .setDesc("Choose the structure of the Ayah note title/path")
-      .addDropdown((dropdown) =>
-        dropdown
-          .addOption("surah-ayah", "Al-Mulk-1")
-          .addOption("surah/ayah", "Al-Mulk/1")
-          .addOption("arabic-ayah", "الملك-1")
-          .addOption("arabic/ayah", "الملك/1")
-          .setValue(this.plugin.settings.ayahNotePathPattern)
+      .setName("Ayah Note Tags")
+      .setDesc("Comma-separated tags to add to the Ayah note")
+      .addText((text) =>
+        text
+          .setPlaceholder("quran, ayah")
+          .setValue(this.plugin.settings.ayahNoteTags)
           .onChange(async (value) => {
-            this.plugin.settings.ayahNotePathPattern = value as
-              | "surah-ayah"
-              | "surah/ayah"
-              | "arabic-ayah"
-              | "arabic/ayah";
+            this.plugin.settings.ayahNoteTags = value;
             await this.plugin.saveSettings();
           }),
       );
