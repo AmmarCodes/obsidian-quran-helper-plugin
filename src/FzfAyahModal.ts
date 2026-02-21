@@ -84,13 +84,16 @@ export class FzfAyahModal extends SuggestModal<IndexedAyah> {
       }
 
       const cursor = editor.getCursor();
-      editor.replaceRange(content, cursor);
-
       const lines = content.split("\n");
       const lastLine = lines[lines.length - 1] || "";
-      editor.setCursor({
-        line: cursor.line + lines.length - 1,
-        ch: lastLine.length,
+      editor.transaction({
+        changes: [{ from: cursor, to: cursor, text: content }],
+        selection: {
+          from: {
+            line: cursor.line + lines.length - 1,
+            ch: lastLine.length,
+          },
+        },
       });
     } catch (error) {
       console.error("Failed to insert ayah:", error);
