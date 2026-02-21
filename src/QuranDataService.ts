@@ -1,6 +1,7 @@
 import { IndexedAyah, SearchableAyah } from "./types";
 import { normalizeArabic } from "./utils";
 import { QuranSearch } from "./QuranSearch";
+import { surahDataService } from "./SurahDataService";
 
 class QuranDataService {
   private static instance: QuranDataService;
@@ -29,13 +30,16 @@ class QuranDataService {
     
 
     try {
-      const data = await import("./ayahs_v2.json"); // Adjust the path as needed
+      const data = await import("./ayahs.json"); // Adjust the path as needed
       const rawAyahs = (data.default || data) as unknown as SearchableAyah[];
 
       // Validate data structure
       if (!Array.isArray(rawAyahs)) {
         throw new Error("Invalid ayahs data format: expected an array");
       }
+
+      const surahs = await surahDataService.getSurahs();
+      const surahMap = new Map(surahs.map((s) => [s.id, s.transliteration]));
 
       this.ayahs = rawAyahs.map((ayah, index) => {
         // Validate each ayah has required fields
@@ -54,6 +58,7 @@ class QuranDataService {
 
         return {
           ...ayah,
+          surah_name_en: surahMap.get(ayah.surah_id) || "",
           normalized_text: normalizeArabic(ayah.text),
         };
       });

@@ -3,6 +3,7 @@ export interface SearchableAyah {
   ayah_id: number;
   text: string;
   surah_name: string;
+  surah_name_en: string;
   page: number;
 }
 
@@ -30,9 +31,17 @@ export interface PageEntry {
 export interface QuranHelperSettings {
   outputFormat: "blockquote" | "callout";
   calloutType: string;
+  ayahNoteFolder: string;
+  ayahNotePathPattern:
+    | "surah-ayah"
+    | "surah/ayah"
+    | "arabic-ayah"
+    | "arabic/ayah";
 }
 
 export const DEFAULT_SETTINGS: QuranHelperSettings = {
   outputFormat: "callout",
   calloutType: "quran",
+  ayahNoteFolder: "",
+  ayahNotePathPattern: "surah-ayah",
 };

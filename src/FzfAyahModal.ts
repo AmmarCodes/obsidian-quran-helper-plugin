@@ -8,12 +8,16 @@ import QuranHelper from "../main";
 export class FzfAyahModal extends SuggestModal<IndexedAyah> {
   private quranSearch: QuranSearch | null = null;
   private plugin: QuranHelper;
+  private onChoose: ((ayah: IndexedAyah) => void) | null = null;
 
-  constructor(app: App, plugin: QuranHelper) {
+  constructor(
+    app: App,
+    plugin: QuranHelper,
+    onChoose?: (ayah: IndexedAyah) => void,
+  ) {
     super(app);
     this.plugin = plugin;
-    // Initialize with a temporary search instance using initial ayahs
-    // so we can use it immediately while full data loads
+    this.onChoose = onChoose || null;
     this.quranSearch = new QuranSearch(INITIAL_AYAHS);
   }
 
@@ -43,6 +47,11 @@ export class FzfAyahModal extends SuggestModal<IndexedAyah> {
   }
 
   onChooseSuggestion(ayah: IndexedAyah, _evt: MouseEvent | KeyboardEvent) {
+    if (this.onChoose) {
+      this.onChoose(ayah);
+      return;
+    }
+
     // Validate ayah object has required properties
     if (
       !ayah ||
