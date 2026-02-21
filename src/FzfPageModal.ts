@@ -39,9 +39,10 @@ export class FzfPageModal extends SuggestModal<PageEntry> {
     const last = entry.ayahs.at(-1);
     if (!first || !last) return;
 
-    el.createEl("div", {
+    const textEl = el.createEl("div", {
       text: `الصفحة ${entry.page}  —  ${entry.ayahs.length} آية`,
     });
+    textEl.setAttribute("dir", "rtl");
 
     const preview = el.createEl("small", {
       text: `${first.surah_name} (${first.ayah_id}) ← ${last.surah_name} (${last.ayah_id})`,

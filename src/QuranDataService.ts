@@ -29,7 +29,7 @@ class QuranDataService {
     if (this.ayahs) return this.ayahs;
 
     try {
-      const data = await import("./ayahs.json"); // Adjust the path as needed
+      const data = await import("./ayahs.json");
       const rawAyahs = (data.default || data) as unknown as SearchableAyah[];
 
       // Validate data structure
