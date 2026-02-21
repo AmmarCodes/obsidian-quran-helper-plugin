@@ -52,12 +52,17 @@ class QuranDataService {
             `Invalid ayah data at index ${index}: missing required fields`,
           );
         }
-
-        return {
+        ayah = {
           ...ayah,
           surah_name_en: surahMap.get(ayah.surah_id) || "",
-          normalized_text: normalizeArabic(ayah.text),
         };
+        if (!ayah.normalized_text) {
+          return {
+            ...ayah,
+            normalized_text: normalizeArabic(ayah.text),
+          };
+        }
+        return ayah as IndexedAyah;
       });
 
       return this.ayahs;
