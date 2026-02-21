@@ -39,6 +39,7 @@
     font-weight: normal;
     line-height: 2rem;
   }
+}
 .callout[data-callout*="quran"] {
   --callout-color: var(--color-green-rgb, (40, 105, 131));
   .callout-content {
