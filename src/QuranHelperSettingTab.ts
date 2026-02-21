@@ -34,6 +34,8 @@ export class QuranHelperSettingTab extends PluginSettingTab {
     if (this.plugin.settings.outputFormat === "callout") {
       const calloutTypes = [
         "quran",
+        "quran-ayah",
+        "quran-surah",
         "note",
         "info",
         "todo",
