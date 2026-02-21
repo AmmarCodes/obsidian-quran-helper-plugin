@@ -3,7 +3,7 @@ export function normalizeArabic(text: string): string {
   return (
     text
       // Remove diacritics (tashkeel)
-      .replace(/[\u0617-\u061A\u064B-\u065E]/g, "")
+      .replace(/[\u0617-\u061A\u06D6\u06D7\u064B-\u065E]/g, "")
       // Remove small alef (alef khanjariya)
       .replace(/\u0670/g, "")
       // Normalize alef wasla and alef variants
