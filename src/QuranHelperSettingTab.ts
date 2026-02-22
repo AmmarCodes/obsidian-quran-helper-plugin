@@ -34,6 +34,8 @@ export class QuranHelperSettingTab extends PluginSettingTab {
     if (this.plugin.settings.outputFormat === "callout") {
       const calloutTypes = [
         "quran",
+        "quran-ayah",
+        "quran-surah",
         "note",
         "info",
         "todo",
@@ -60,5 +62,44 @@ export class QuranHelperSettingTab extends PluginSettingTab {
           });
         });
     }
+
+    containerEl.createEl("h3", { text: "Ayah Note Settings" });
+
+    new Setting(containerEl)
+      .setName("Ayah Note Folder")
+      .setDesc("The folder where Ayah notes will be created")
+      .setClass("quran-folder-setting")
+      .addText((text) => {
+        text
+          .setPlaceholder("Example: Quran/Notes")
+          .setValue(this.plugin.settings.ayahNoteFolder)
+          .onChange(async (value) => {
+            this.plugin.settings.ayahNoteFolder = value;
+            await this.plugin.saveSettings();
+          });
+      })
+      .addExtraButton((button) => {
+        button.setIcon("folder");
+      });
+
+    new Setting(containerEl)
+      .setName("Ayah Note Path Pattern")
+      .setDesc("Choose the structure of the Ayah note title/path")
+      .addDropdown((dropdown) =>
+        dropdown
+          .addOption("surah-ayah", "Al-Mulk-1")
+          .addOption("surah/ayah", "Al-Mulk/1")
+          .addOption("arabic-ayah", "الملك-1")
+          .addOption("arabic/ayah", "الملك/1")
+          .setValue(this.plugin.settings.ayahNotePathPattern)
+          .onChange(async (value) => {
+            this.plugin.settings.ayahNotePathPattern = value as
+              | "surah-ayah"
+              | "surah/ayah"
+              | "arabic-ayah"
+              | "arabic/ayah";
+            await this.plugin.saveSettings();
+          }),
+      );
   }
 }
