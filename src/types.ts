@@ -5,10 +5,16 @@ export interface SearchableAyah {
   surah_name: string;
   normalized_text?: string;
   surah_name_en: string;
+  page: number;
 }
 
 export interface IndexedAyah extends SearchableAyah {
   normalized_text: string;
+}
+
+export interface PageEntry {
+  page: number;
+  ayahs: IndexedAyah[];
 }
 
 export interface SearchableSurah {
@@ -27,6 +33,7 @@ export interface QuranHelperSettings {
   outputFormat: "blockquote" | "callout";
   calloutType: string;
   ayahNoteFolder: string;
+  ayahNoteTags: string;
   ayahNotePathPattern:
     | "surah-ayah"
     | "surah/ayah"
@@ -38,5 +45,6 @@ export const DEFAULT_SETTINGS: QuranHelperSettings = {
   outputFormat: "callout",
   calloutType: "quran-ayah",
   ayahNoteFolder: "",
+  ayahNoteTags: "",
   ayahNotePathPattern: "surah-ayah",
 };

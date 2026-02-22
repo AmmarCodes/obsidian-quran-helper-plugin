@@ -1,9 +1,10 @@
-import { App, MarkdownView, Notice, SuggestModal } from "obsidian";
+import type { App } from "obsidian";
+import { MarkdownView, Notice, SuggestModal } from "obsidian";
 import { quranDataService } from "./QuranDataService";
 import { QuranSearch } from "./QuranSearch";
-import { IndexedAyah } from "./types";
+import type { IndexedAyah } from "./types";
 import { INITIAL_AYAHS } from "./initialAyahs";
-import QuranHelper from "../main";
+import type QuranHelper from "../main";
 
 export class FzfAyahModal extends SuggestModal<IndexedAyah> {
   private quranSearch: QuranSearch | null = null;
@@ -84,13 +85,16 @@ export class FzfAyahModal extends SuggestModal<IndexedAyah> {
       }
 
       const cursor = editor.getCursor();
-      editor.replaceRange(content, cursor);
-
       const lines = content.split("\n");
       const lastLine = lines[lines.length - 1] || "";
-      editor.setCursor({
-        line: cursor.line + lines.length - 1,
-        ch: lastLine.length,
+      editor.transaction({
+        changes: [{ from: cursor, to: cursor, text: content }],
+        selection: {
+          from: {
+            line: cursor.line + lines.length - 1,
+            ch: lastLine.length,
+          },
+        },
       });
     } catch (error) {
       console.error("Failed to insert ayah:", error);

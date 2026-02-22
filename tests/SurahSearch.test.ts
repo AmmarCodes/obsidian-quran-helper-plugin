@@ -1,5 +1,5 @@
 import { SurahSearch } from "../src/SurahSearch";
-import { SearchableSurah } from "../src/types";
+import type { SearchableSurah } from "../src/types";
 
 // Mock Data
 const mockSurahs: SearchableSurah[] = [

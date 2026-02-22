@@ -1,4 +1,4 @@
-import { IndexedAyah, SearchableAyah } from "./types";
+import type { IndexedAyah, SearchableAyah } from "./types";
 import { normalizeArabic } from "./utils";
 import { QuranSearch } from "./QuranSearch";
 import { surahDataService } from "./SurahDataService";
@@ -7,6 +7,7 @@ class QuranDataService {
   private static instance: QuranDataService;
   private ayahs: IndexedAyah[] | null = null;
   private searchService: QuranSearch | null = null;
+  private pageMap: Map<number, IndexedAyah[]> | null = null;
 
   private constructor() {}
 
@@ -73,6 +74,21 @@ class QuranDataService {
       console.error("Failed to load ayahs:", error);
       throw error; // Re-throw so caller can handle
     }
+  }
+  public async getPageMap(): Promise<Map<number, IndexedAyah[]>> {
+    if (this.pageMap) return this.pageMap;
+    const ayahs = await this.getAyahs();
+    const map = new Map<number, IndexedAyah[]>();
+    for (const ayah of ayahs) {
+      const bucket = map.get(ayah.page);
+      if (bucket) {
+        bucket.push(ayah);
+      } else {
+        map.set(ayah.page, [ayah]);
+      }
+    }
+    this.pageMap = map;
+    return map;
   }
 }
 

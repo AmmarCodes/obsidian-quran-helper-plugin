@@ -2,8 +2,8 @@ import { App, MarkdownView, Notice, SuggestModal } from "obsidian";
 import { quranDataService } from "./QuranDataService";
 import { surahDataService } from "./SurahDataService";
 import { SurahSearch } from "./SurahSearch";
-import { IndexedSurah } from "./types";
-import QuranHelper from "../main";
+import type { IndexedSurah } from "./types";
+import type QuranHelper from "../main";
 
 export class FzfSurahModal extends SuggestModal<IndexedSurah> {
   private surahSearch: SurahSearch | null = null;
@@ -87,7 +87,7 @@ export class FzfSurahModal extends SuggestModal<IndexedSurah> {
         surahAyahs.forEach((ayah) => {
           content += `> ${ayah.ayah_id}. ${ayah.text}\n`;
         });
-        content += `>\n\n`;
+        content += `\n\n`;
       } else {
         // Callout format
         const type = calloutType || "quran";
@@ -100,17 +100,20 @@ export class FzfSurahModal extends SuggestModal<IndexedSurah> {
         surahAyahs.forEach((ayah) => {
           content += `${ayah.text} (${ayah.ayah_id}) `;
         });
-        content += `\n>\n\n`;
+        content += `\n\n`;
       }
 
       const cursor = editor.getCursor();
-      editor.replaceRange(content, cursor);
-
       const lines = content.split("\n");
       const lastLine = lines[lines.length - 1] || "";
-      editor.setCursor({
-        line: cursor.line + lines.length - 1,
-        ch: lastLine.length,
+      editor.transaction({
+        changes: [{ from: cursor, to: cursor, text: content }],
+        selection: {
+          from: {
+            line: cursor.line + lines.length - 1,
+            ch: lastLine.length,
+          },
+        },
       });
     } catch (error) {
       console.error("Failed to insert surah:", error);

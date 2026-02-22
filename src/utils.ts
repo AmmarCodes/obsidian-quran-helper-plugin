@@ -20,3 +20,21 @@ export function normalizeArabic(text: string): string {
       .replace(/\s+/g, " ")
   );
 }
+
+export function parseAyahNoteTags(rawTags: string): string[] {
+  return rawTags
+    .split(",")
+    .map((tag) => tag.trim().replace(/^#+/, ""))
+    .filter((tag) => Boolean(tag))
+    .filter((tag, index, all) => all.indexOf(tag) === index);
+}
+
+export function withTagsFrontmatter(content: string, rawTags: string): string {
+  const tags = parseAyahNoteTags(rawTags);
+  if (tags.length === 0) {
+    return content;
+  }
+
+  const frontmatterTags = tags.map((tag) => `  - ${tag}`).join("\n");
+  return `---\ntags:\n${frontmatterTags}\n---\n${content}`;
+}

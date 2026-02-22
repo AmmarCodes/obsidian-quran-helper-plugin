@@ -1,4 +1,8 @@
-import { normalizeArabic } from "../src/utils";
+import {
+  normalizeArabic,
+  parseAyahNoteTags,
+  withTagsFrontmatter,
+} from "../src/utils";
 
 describe("normalizeArabicChars", () => {
   it.each([
@@ -30,5 +34,32 @@ describe("normalizeArabicChars", () => {
     },
   ])("normalizes QPC text '$input' as '$expected'", ({ input, expected }) => {
     expect(normalizeArabic(input)).toBe(expected);
+  });
+});
+
+describe("parseAyahNoteTags", () => {
+  it.each([
+    { input: "", expected: [] },
+    { input: "   ", expected: [] },
+    { input: "quran", expected: ["quran"] },
+    { input: " quran, ayah ", expected: ["quran", "ayah"] },
+    { input: "#quran, ##ayah", expected: ["quran", "ayah"] },
+    { input: "quran, #quran, ayah,", expected: ["quran", "ayah"] },
+  ])("parses '$input' as $expected", ({ input, expected }) => {
+    expect(parseAyahNoteTags(input)).toEqual(expected);
+  });
+});
+
+describe("withTagsFrontmatter", () => {
+  test("returns content unchanged when there are no tags", () => {
+    const content = "> [!quran] Al-Fatihah\n> text (1)\n";
+    expect(withTagsFrontmatter(content, " ,  , ##")).toBe(content);
+  });
+
+  test("prepends tags frontmatter when tags are provided", () => {
+    const content = "> [!quran] Al-Fatihah\n> text (1)\n";
+    expect(withTagsFrontmatter(content, "#quran, ayah, #quran")).toBe(
+      "---\ntags:\n  - quran\n  - ayah\n---\n> [!quran] Al-Fatihah\n> text (1)\n",
+    );
   });
 });

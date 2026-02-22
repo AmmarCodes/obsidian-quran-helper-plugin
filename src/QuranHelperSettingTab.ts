@@ -1,5 +1,6 @@
-import { App, PluginSettingTab, Setting } from "obsidian";
-import QuranHelper from "../main";
+import type { App } from "obsidian";
+import { PluginSettingTab, Setting } from "obsidian";
+import type QuranHelper from "../main";
 
 export class QuranHelperSettingTab extends PluginSettingTab {
   plugin: QuranHelper;
@@ -101,5 +102,18 @@ export class QuranHelperSettingTab extends PluginSettingTab {
             await this.plugin.saveSettings();
           }),
       );
+
+    new Setting(containerEl)
+      .setName("Ayah Note Tags")
+      .setDesc("Comma-separated tags to add to created Ayah notes")
+      .addText((text) => {
+        text
+          .setPlaceholder("quran, ayah")
+          .setValue(this.plugin.settings.ayahNoteTags)
+          .onChange(async (value) => {
+            this.plugin.settings.ayahNoteTags = value;
+            await this.plugin.saveSettings();
+          });
+      });
   }
 }
