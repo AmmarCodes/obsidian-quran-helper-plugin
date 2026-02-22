@@ -33,6 +33,7 @@ export interface QuranHelperSettings {
   outputFormat: "blockquote" | "callout";
   calloutType: string;
   ayahNoteFolder: string;
+  ayahNoteTags: string;
   ayahNotePathPattern:
     | "surah-ayah"
     | "surah/ayah"
@@ -44,5 +45,6 @@ export const DEFAULT_SETTINGS: QuranHelperSettings = {
   outputFormat: "callout",
   calloutType: "quran-ayah",
   ayahNoteFolder: "",
+  ayahNoteTags: "",
   ayahNotePathPattern: "surah-ayah",
 };
