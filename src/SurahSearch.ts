@@ -26,14 +26,14 @@ export class SurahSearch {
         if (!this.wordToSurahs.has(token)) {
           this.wordToSurahs.set(token, new Set());
         }
-        this.wordToSurahs.get(token)!.add(index);
+        this.wordToSurahs.get(token)?.add(index);
       });
     });
 
     this.uniqueWords = Array.from(wordSet);
   }
 
-  public search(query: string, limit: number = 50): IndexedSurah[] {
+  public search(query: string, limit = 50): IndexedSurah[] {
     if (!query.trim()) {
       return this.surahs.slice(0, limit);
     }

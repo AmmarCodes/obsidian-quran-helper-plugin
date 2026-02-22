@@ -26,14 +26,14 @@ export class QuranSearch {
         if (!this.wordToAyahs.has(token)) {
           this.wordToAyahs.set(token, new Set());
         }
-        this.wordToAyahs.get(token)!.add(index);
+        this.wordToAyahs.get(token)?.add(index);
       });
     });
 
     this.uniqueWords = Array.from(wordSet);
   }
 
-  public search(query: string, limit: number = 50): IndexedAyah[] {
+  public search(query: string, limit = 50): IndexedAyah[] {
     if (!query.trim()) {
       return this.ayahs.slice(0, limit);
     }
