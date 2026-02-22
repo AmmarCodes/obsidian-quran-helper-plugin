@@ -1,7 +1,8 @@
-import { App, Editor, MarkdownView, Notice, SuggestModal } from "obsidian";
-import { IndexedAyah, PageEntry } from "./types";
+import type { App, Editor } from "obsidian";
+import { MarkdownView, Notice, SuggestModal } from "obsidian";
+import type { IndexedAyah, PageEntry } from "./types";
 import { normalizeArabic } from "./utils";
-import QuranHelper from "../main";
+import type QuranHelper from "../main";
 
 type PageAyahItem =
   | { kind: "all"; ayahs: IndexedAyah[] }
@@ -77,14 +78,11 @@ export class FzfPageAyahModal extends SuggestModal<PageAyahItem> {
     }
 
     const { outputFormat, calloutType } = this.plugin.settings;
-    let content = "";
-
-    if (outputFormat === "blockquote") {
-      content = `> ${ayah.text}\n> — ${ayah.surah_name} - ${ayah.ayah_id}\n\n`;
-    } else {
-      const type = calloutType || "quran";
-      content = `> [!${type}] ${ayah.surah_name} - ${ayah.ayah_id}\n> ${ayah.text}\n\n`;
-    }
+    const type = calloutType || "quran";
+    const content =
+      outputFormat === "blockquote"
+        ? `> ${ayah.text}\n> — ${ayah.surah_name} - ${ayah.ayah_id}\n\n`
+        : `> [!${type}] ${ayah.surah_name} - ${ayah.ayah_id}\n> ${ayah.text}\n\n`;
 
     this.insertContent(editor, content);
   }

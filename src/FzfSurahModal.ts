@@ -1,9 +1,10 @@
-import { App, MarkdownView, Notice, SuggestModal } from "obsidian";
+import type { App } from "obsidian";
+import { MarkdownView, Notice, SuggestModal } from "obsidian";
 import { quranDataService } from "./QuranDataService";
 import { surahDataService } from "./SurahDataService";
 import { SurahSearch } from "./SurahSearch";
-import { IndexedSurah } from "./types";
-import QuranHelper from "../main";
+import type { IndexedSurah } from "./types";
+import type QuranHelper from "../main";
 
 export class FzfSurahModal extends SuggestModal<IndexedSurah> {
   private surahSearch: SurahSearch | null = null;

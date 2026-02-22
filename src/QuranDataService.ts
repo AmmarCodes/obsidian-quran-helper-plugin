@@ -1,4 +1,4 @@
-import { IndexedAyah, SearchableAyah } from "./types";
+import type { IndexedAyah, SearchableAyah } from "./types";
 import { normalizeArabic } from "./utils";
 import { QuranSearch } from "./QuranSearch";
 import { surahDataService } from "./SurahDataService";

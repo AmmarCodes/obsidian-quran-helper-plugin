@@ -1,4 +1,4 @@
-import { IndexedSurah } from "./types";
+import type { IndexedSurah } from "./types";
 import { normalizeArabic } from "./utils";
 
 export class SurahSearch {

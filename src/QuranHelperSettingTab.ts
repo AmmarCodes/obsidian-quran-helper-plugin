@@ -1,5 +1,6 @@
-import { App, PluginSettingTab, Setting } from "obsidian";
-import QuranHelper from "../main";
+import type { App } from "obsidian";
+import { PluginSettingTab, Setting } from "obsidian";
+import type QuranHelper from "../main";
 
 export class QuranHelperSettingTab extends PluginSettingTab {
   plugin: QuranHelper;

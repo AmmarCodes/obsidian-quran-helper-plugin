@@ -2,7 +2,8 @@ import { Notice, normalizePath, Plugin, TFolder, addIcon } from "obsidian";
 import { FzfAyahModal } from "src/FzfAyahModal";
 import { FzfSurahModal } from "src/FzfSurahModal";
 import { FzfPageModal } from "src/FzfPageModal";
-import { QuranHelperSettings, DEFAULT_SETTINGS, IndexedAyah } from "src/types";
+import type { QuranHelperSettings, IndexedAyah } from "src/types";
+import { DEFAULT_SETTINGS } from "src/types";
 import { QuranHelperSettingTab } from "src/QuranHelperSettingTab";
 
 // 1. Icon for Ayah
@@ -129,14 +130,11 @@ export default class QuranHelper extends Plugin {
     );
 
     const { outputFormat, calloutType } = this.settings;
-    let content = "";
-
-    if (outputFormat === "blockquote") {
-      content = `> ## ${surahName}\n>\n> ${ayah.text} (${ayah.ayah_id})\n>\n\n`;
-    } else {
-      const type = calloutType || "quran";
-      content = `> [!${type}] ${surahName}\n> ${ayah.text} (${ayah.ayah_id})\n>\n\n`;
-    }
+    const type = calloutType || "quran";
+    const content =
+      outputFormat === "blockquote"
+        ? `> ## ${surahName}\n>\n> ${ayah.text} (${ayah.ayah_id})\n>\n\n`
+        : `> [!${type}] ${surahName}\n> ${ayah.text} (${ayah.ayah_id})\n>\n\n`;
 
     try {
       await this.ensureFolderExists(fullPath);

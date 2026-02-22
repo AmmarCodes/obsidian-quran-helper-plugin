@@ -1,4 +1,4 @@
-import { IndexedSurah, SearchableSurah } from "./types";
+import type { IndexedSurah, SearchableSurah } from "./types";
 import { normalizeArabic } from "./utils";
 
 class SurahDataService {

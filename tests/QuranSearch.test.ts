@@ -1,5 +1,5 @@
 import { QuranSearch } from "../src/QuranSearch";
-import { IndexedAyah, SearchableAyah } from "../src/types";
+import type { IndexedAyah, SearchableAyah } from "../src/types";
 import { normalizeArabic } from "../src/utils";
 
 // Mock Data
