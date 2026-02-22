@@ -88,7 +88,7 @@ export class FzfSurahModal extends SuggestModal<IndexedSurah> {
         surahAyahs.forEach((ayah) => {
           content += `> ${ayah.ayah_id}. ${ayah.text}\n`;
         });
-        content += `>\n\n`;
+        content += `\n\n`;
       } else {
         // Callout format
         const type = calloutType || "quran";
@@ -101,7 +101,7 @@ export class FzfSurahModal extends SuggestModal<IndexedSurah> {
         surahAyahs.forEach((ayah) => {
           content += `${ayah.text} (${ayah.ayah_id}) `;
         });
-        content += `\n>\n\n`;
+        content += `\n\n`;
       }
 
       const cursor = editor.getCursor();

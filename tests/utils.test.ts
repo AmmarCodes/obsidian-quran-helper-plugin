@@ -39,7 +39,7 @@ describe("withTagsFrontmatter", () => {
   test("prepends tags frontmatter when tags are provided", () => {
     const content = "> [!quran] Al-Fatihah\n> text (1)\n";
     expect(withTagsFrontmatter(content, "#quran, ayah, #quran")).toBe(
-      "---\ntags:\n  - quran\n  - ayah\n---\n\n> [!quran] Al-Fatihah\n> text (1)\n",
+      "---\ntags:\n  - quran\n  - ayah\n---\n> [!quran] Al-Fatihah\n> text (1)\n",
     );
   });
 });

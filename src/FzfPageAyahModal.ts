@@ -108,14 +108,14 @@ export class FzfPageAyahModal extends SuggestModal<PageAyahItem> {
       ayahs.forEach((ayah) => {
         content += `> ${ayah.ayah_id}. ${ayah.text}\n`;
       });
-      content += `>\n\n`;
+      content += `\n`;
     } else {
       const type = calloutType || "quran";
       content = `> [!${type}] ${header}\n> `;
       ayahs.forEach((ayah) => {
         content += `${ayah.text} (${ayah.ayah_id}) `;
       });
-      content += `\n>\n\n`;
+      content += `\n`;
     }
 
     this.insertContent(editor, content);
