@@ -5,7 +5,7 @@ export interface SearchableAyah {
   surah_name: string;
   normalized_text?: string;
   surah_name_en: string;
-  page: number;
+  page?: number;
 }
 
 export interface IndexedAyah extends SearchableAyah {
