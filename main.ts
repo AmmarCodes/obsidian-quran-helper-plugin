@@ -1,6 +1,7 @@
 import { Notice, normalizePath, Plugin, TFolder, addIcon } from "obsidian";
 import { FzfAyahModal } from "src/FzfAyahModal";
 import { FzfSurahModal } from "src/FzfSurahModal";
+import { FzfPageModal } from "src/FzfPageModal";
 import { QuranHelperSettings, DEFAULT_SETTINGS, IndexedAyah } from "src/types";
 import { QuranHelperSettingTab } from "src/QuranHelperSettingTab";
 
@@ -21,6 +22,15 @@ const QURAN_SURAH_ICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2
   <path d="M18 14l-3 5"></path>
 </svg>`;
 
+// 3. Icon for Page
+const QURAN_PAGE_ICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/>
+  <path d="M14 2v4a2 2 0 0 0 2 2h4"/>
+  <path d="M10 9H8"/>
+  <path d="M16 13H8"/>
+  <path d="M16 17H8"/>
+</svg>`;
+
 export default class QuranHelper extends Plugin {
   settings!: QuranHelperSettings;
 
@@ -29,6 +39,7 @@ export default class QuranHelper extends Plugin {
     // Register our custom icons with Obsidian
     addIcon("quran-ayah", QURAN_AYAH_ICON);
     addIcon("quran-surah", QURAN_SURAH_ICON);
+    addIcon("quran-page", QURAN_PAGE_ICON);
 
     // creates an icon in the left ribbon.
     this.addRibbonIcon("quran-ayah", "Insert Ayah (إدراج آية)", () => {
@@ -38,6 +49,11 @@ export default class QuranHelper extends Plugin {
     // creates an icon for inserting entire surah
     this.addRibbonIcon("quran-surah", "Insert Surah (إدراج سورة)", () => {
       new FzfSurahModal(this.app, this).open();
+    });
+
+    // creates an icon for inserting by page
+    this.addRibbonIcon("quran-page", "Insert Page (إدراج صفحة)", () => {
+      new FzfPageModal(this.app, this).open();
     });
 
     this.addCommand({
@@ -53,6 +69,14 @@ export default class QuranHelper extends Plugin {
       name: "Insert Surah (إدراج سورة)",
       callback: () => {
         new FzfSurahModal(this.app, this).open();
+      },
+    });
+
+    this.addCommand({
+      id: "open-fzf-quran-page-modal",
+      name: "Insert Page (إدراج صفحة)",
+      callback: () => {
+        new FzfPageModal(this.app, this).open();
       },
     });
 

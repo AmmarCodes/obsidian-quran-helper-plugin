@@ -10,7 +10,8 @@
     "normalize": "npx --yes tsx scripts/normalize_text.ts",
     "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
     "version": "node version-bump.mjs",
-    "test": "jest"
+    "test": "jest",
+    "enrich": "npx tsx scripts/enrich_data.ts"
   },
   "keywords": [
     "obsidian-plugin",

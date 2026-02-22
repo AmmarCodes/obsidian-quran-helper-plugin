@@ -5,10 +5,16 @@ export interface SearchableAyah {
   surah_name: string;
   normalized_text?: string;
   surah_name_en: string;
+  page: number;
 }
 
 export interface IndexedAyah extends SearchableAyah {
   normalized_text: string;
+}
+
+export interface PageEntry {
+  page: number;
+  ayahs: IndexedAyah[];
 }
 
 export interface SearchableSurah {
