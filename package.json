@@ -9,7 +9,7 @@
     "prettier:fix": "./node_modules/.bin/prettier --write main.ts src/**/*.ts tests/**/*.ts",
     "normalize": "npx --yes tsx scripts/normalize_text.ts",
     "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
-    "version": "node version-bump.mjs && git add manifest.json versions.json",
+    "version": "node version-bump.mjs",
     "test": "jest"
   },
   "keywords": [
