@@ -1,9 +1,10 @@
-import { App, MarkdownView, Notice, SuggestModal } from "obsidian";
+import type { App } from "obsidian";
+import { MarkdownView, Notice, SuggestModal } from "obsidian";
 import { quranDataService } from "./QuranDataService";
 import { QuranSearch } from "./QuranSearch";
-import { IndexedAyah } from "./types";
+import type { IndexedAyah } from "./types";
 import { INITIAL_AYAHS } from "./initialAyahs";
-import QuranHelper from "../main";
+import type QuranHelper from "../main";
 
 export class FzfAyahModal extends SuggestModal<IndexedAyah> {
   private quranSearch: QuranSearch | null = null;

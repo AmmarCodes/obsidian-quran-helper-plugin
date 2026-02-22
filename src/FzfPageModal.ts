@@ -1,8 +1,9 @@
-import { App, SuggestModal } from "obsidian";
+import type { App } from "obsidian";
+import { SuggestModal } from "obsidian";
 import { quranDataService } from "./QuranDataService";
-import { PageEntry } from "./types";
+import type { PageEntry } from "./types";
 import { FzfPageAyahModal } from "./FzfPageAyahModal";
-import QuranHelper from "../main";
+import type QuranHelper from "../main";
 
 export class FzfPageModal extends SuggestModal<PageEntry> {
   private pages: PageEntry[] = [];

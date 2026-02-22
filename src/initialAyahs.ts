@@ -1,4 +1,4 @@
-import { IndexedAyah } from "./types";
+import type { IndexedAyah } from "./types";
 import { normalizeArabic } from "./utils";
 
 const rawAyahs = [
