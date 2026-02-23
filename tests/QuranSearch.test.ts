@@ -112,4 +112,35 @@ describe("QuranSearch (Inverted Index)", () => {
     // Should search by text, not by ID
     expect(results).toHaveLength(0);
   });
+
+  describe("Surah:Ayah lookup", () => {
+    it("finds exact ayah by surah:ayah format", () => {
+      const results = searchService.search("2:1");
+      expect(results).toHaveLength(1);
+      expect(results[0]?.surah_id).toBe(2);
+      expect(results[0]?.ayah_id).toBe(1);
+    });
+
+    it("finds ayah from surah 1", () => {
+      const results = searchService.search("1:1");
+      expect(results).toHaveLength(1);
+      expect(results[0]?.surah_id).toBe(1);
+      expect(results[0]?.ayah_id).toBe(1);
+    });
+
+    it("returns empty for non-existent surah", () => {
+      const results = searchService.search("999:1");
+      expect(results).toHaveLength(0);
+    });
+
+    it("returns empty for non-existent ayah in existing surah", () => {
+      const results = searchService.search("1:999");
+      expect(results).toHaveLength(0);
+    });
+
+    it("does not treat surah:ayah-like strings with non-digits as coordinate lookup", () => {
+      const results = searchService.search("2:1abc");
+      expect(results).toHaveLength(0);
+    });
+  });
 });
