@@ -39,8 +39,5 @@
     "ts-jest": "^29.4.6",
     "tslib": "2.8.1",
     "typescript": "5.9.3"
-  },
-  "dependencies": {
-    "quran-json": "^3.1.2"
   }
 }

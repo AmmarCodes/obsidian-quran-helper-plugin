@@ -36,4 +36,4 @@
 
 ## مصادر
 
-الإضافة تستخدم [quran-json](https://github.com/risan/quran-json).
+الإضافة تستخدم [QPC Hafs script](https://qul.tarteel.ai/resources/quran-script/86) by QUL / TarteelAL
