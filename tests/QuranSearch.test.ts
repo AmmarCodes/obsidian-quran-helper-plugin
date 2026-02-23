@@ -115,16 +115,16 @@ describe("QuranSearch (Inverted Index)", () => {
 
   describe("Surah:Ayah lookup", () => {
     it("finds exact ayah by surah:ayah format", () => {
-      const results = searchService.search("2:1");
-      expect(results).toHaveLength(1);
-      expect(results[0]?.surah_id).toBe(2);
-      expect(results[0]?.ayah_id).toBe(1);
-    });
-
-    it("finds ayah from surah 1", () => {
       const results = searchService.search("1:1");
       expect(results).toHaveLength(1);
       expect(results[0]?.surah_id).toBe(1);
+      expect(results[0]?.ayah_id).toBe(1);
+    });
+
+    it("finds ayah from a high-numbered surah", () => {
+      const results = searchService.search("112:1");
+      expect(results).toHaveLength(1);
+      expect(results[0]?.surah_id).toBe(112);
       expect(results[0]?.ayah_id).toBe(1);
     });
 
