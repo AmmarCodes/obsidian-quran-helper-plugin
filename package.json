@@ -1,6 +1,6 @@
 {
   "name": "obsidian-quran-plugin",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Obsidian plugin to find and insert any Quran Ayah (verse) in your notes",
   "main": "main.js",
   "scripts": {
@@ -11,6 +11,7 @@
     "prettier:fix": "prettier --write main.ts src/**/*.ts tests/**/*.ts .prettierrc package.json",
     "normalize": "npx --yes tsx scripts/normalize_text.ts",
     "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+    "prebuild": "npx tsx scripts/enrich_data.ts",
     "version": "node version-bump.mjs",
     "test": "jest",
     "enrich": "npx tsx scripts/enrich_data.ts"
@@ -39,8 +40,5 @@
     "ts-jest": "^29.4.6",
     "tslib": "2.8.1",
     "typescript": "5.9.3"
-  },
-  "dependencies": {
-    "quran-json": "^3.1.2"
   }
 }
