@@ -11,6 +11,7 @@
     "prettier:fix": "prettier --write main.ts src/**/*.ts tests/**/*.ts .prettierrc package.json",
     "normalize": "npx --yes tsx scripts/normalize_text.ts",
     "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+    "prebuild": "npx tsx scripts/enrich_data.ts",
     "version": "node version-bump.mjs",
     "test": "jest",
     "enrich": "npx tsx scripts/enrich_data.ts"
