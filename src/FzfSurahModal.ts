@@ -1,5 +1,4 @@
-import type { App } from "obsidian";
-import { MarkdownView, Notice, SuggestModal } from "obsidian";
+import { App, MarkdownView, Notice, SuggestModal } from "obsidian";
 import { quranDataService } from "./QuranDataService";
 import { surahDataService } from "./SurahDataService";
 import { SurahSearch } from "./SurahSearch";
@@ -69,7 +68,7 @@ export class FzfSurahModal extends SuggestModal<IndexedSurah> {
     }
 
     try {
-      // Load ayahs from ayahs.json (Imlaei text that renders correctly)
+      // Load verses for this surah from ayahs data
       const allAyahs = await quranDataService.getAyahs();
       const surahAyahs = allAyahs.filter((a) => a.surah_id === surah.id);
 

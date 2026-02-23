@@ -1,32 +1,32 @@
 import { QuranSearch } from "../src/QuranSearch";
-import type { IndexedAyah, SearchableAyah } from "../src/types";
+import { IndexedAyah, SearchableAyah } from "../src/types";
 import { normalizeArabic } from "../src/utils";
 
-// Mock Data
+// Mock Data (QPC Hafs script)
 const mockFlatAyahs: SearchableAyah[] = [
   {
     surah_id: 1,
     ayah_id: 1,
-    page: 1,
-    text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+    text: "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ",
     surah_name: "الفاتحة",
     surah_name_en: "Al-Fatihah",
+    page: 1,
   },
   {
     surah_id: 1,
     ayah_id: 2,
-    page: 1,
-    text: "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ",
+    text: "ٱلۡحَمۡدُ لِلَّهِ رَبِّ ٱلۡعَٰلَمِينَ",
     surah_name: "الفاتحة",
     surah_name_en: "Al-Fatihah",
+    page: 1,
   },
   {
     surah_id: 112,
     ayah_id: 1,
-    page: 604,
-    text: "قُلْ هُوَ اللَّهُ أَحَدٌ",
+    text: "قُلۡ هُوَ ٱللَّهُ أَحَدٌ",
     surah_name: "الإخلاص",
     surah_name_en: "Al-Ikhlas",
+    page: 604,
   },
 ];
 
@@ -65,11 +65,11 @@ describe("QuranSearch (Inverted Index)", () => {
     expect(results).toHaveLength(1);
     const firstResult = results[0];
     expect(firstResult).toBeDefined();
-    expect(firstResult?.text).toContain("الْحَمْدُ");
+    expect(firstResult?.text).toContain("ٱلۡحَمۡدُ");
   });
 
   it("handles partial word matches (e.g. 'عس ربك' -> 'عسى ربكم')", () => {
-    // "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ"
+    // "ٱلۡحَمۡدُ لِلَّهِ رَبِّ ٱلۡعَٰلَمِينَ"
     // Query "الحمد لله" -> matches
     // Query "الحم لله" -> should match "الحمد لله"
 
@@ -77,7 +77,7 @@ describe("QuranSearch (Inverted Index)", () => {
     expect(results.length).toBeGreaterThan(0);
     const firstResult = results[0];
     expect(firstResult).toBeDefined();
-    expect(firstResult?.text).toContain("الْحَمْدُ");
+    expect(firstResult?.text).toContain("ٱلۡحَمۡدُ");
   });
 
   it("handles empty queries", () => {
@@ -92,11 +92,11 @@ describe("QuranSearch (Inverted Index)", () => {
       (_, i) => ({
         surah_id: 1,
         ayah_id: i + 1,
-        page: 1,
         text: `Test ayah ${i + 1}`,
         surah_name: "Test",
         surah_name_en: "Test",
         normalized_text: `test ayah ${i + 1}`,
+        page: i,
       }),
     );
 
