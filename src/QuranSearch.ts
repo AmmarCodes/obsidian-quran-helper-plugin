@@ -39,6 +39,22 @@ export class QuranSearch {
     }
 
     const normalizedQuery = normalizeArabic(query.trim());
+
+    // Handle Surah:Ayah query (e.g. "2:255")
+    const surahAyahMatch = /^(\d+):(\d+)$/.exec(query.trim());
+    if (surahAyahMatch) {
+      const surahStr = surahAyahMatch[1];
+      const ayahStr = surahAyahMatch[2];
+      if (surahStr && ayahStr) {
+        const surahId = parseInt(surahStr, 10);
+        const ayahId = parseInt(ayahStr, 10);
+        const found = this.ayahs.find(
+          (a) => a.surah_id === surahId && a.ayah_id === ayahId,
+        );
+        return found ? [found] : [];
+      }
+    }
+
     const isNumericQuery = /^\d+$/.test(query.trim());
 
     // Handle numeric query (Ayah ID matching)

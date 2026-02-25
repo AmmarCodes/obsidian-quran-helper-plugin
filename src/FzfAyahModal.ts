@@ -17,6 +17,7 @@ export class FzfAyahModal extends SuggestModal<IndexedAyah> {
     onChoose?: (ayah: IndexedAyah) => void,
   ) {
     super(app);
+    this.setPlaceholder("Search by text, ayah number, or 2:255 for Surah:Ayah");
     this.plugin = plugin;
     this.onChoose = onChoose || null;
     this.quranSearch = new QuranSearch(INITIAL_AYAHS);
