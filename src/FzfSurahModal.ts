@@ -1,4 +1,5 @@
-import { App, MarkdownView, Notice, SuggestModal } from "obsidian";
+import { MarkdownView, Notice, SuggestModal } from "obsidian";
+import type { App } from "obsidian";
 import { quranDataService } from "./QuranDataService";
 import { surahDataService } from "./SurahDataService";
 import { SurahSearch } from "./SurahSearch";
@@ -26,7 +27,7 @@ export class FzfSurahModal extends SuggestModal<IndexedSurah> {
       this.inputEl.dispatchEvent(new Event("input"));
     } catch (error) {
       console.error("Failed to load surahs:", error);
-      // Fallback is already handled by constructor initialization
+      new Notice("Using offline data. Some surahs may be unavailable.");
     }
   }
 
@@ -77,31 +78,25 @@ export class FzfSurahModal extends SuggestModal<IndexedSurah> {
       }
 
       const { outputFormat, calloutType } = this.plugin.settings;
-      let content = "";
+      const contentParts: string[] = [];
 
       if (outputFormat === "blockquote") {
-        // Header
-        content = `> ## ${surah.name} \n>\n`;
-
-        // Verses
+        contentParts.push(`> ## ${surah.name} \n>\n`);
         surahAyahs.forEach((ayah) => {
-          content += `> ${ayah.ayah_id}. ${ayah.text}\n`;
+          contentParts.push(`> ${ayah.ayah_id}. ${ayah.text}\n`);
         });
-        content += `\n\n`;
+        contentParts.push(`\n\n`);
       } else {
-        // Callout format
         const type = calloutType || "quran";
-
-        // Header
-        content = `> [!${type}] ${surah.name}\n`;
-
-        // Verses
-        content += "> ";
+        contentParts.push(`> [!${type}] ${surah.name}\n`);
+        contentParts.push("> ");
         surahAyahs.forEach((ayah) => {
-          content += `${ayah.text} (${ayah.ayah_id}) `;
+          contentParts.push(`${ayah.text} (${ayah.ayah_id}) `);
         });
-        content += `\n\n`;
+        contentParts.push(`\n\n`);
       }
+
+      const content = contentParts.join("");
 
       const cursor = editor.getCursor();
       const lines = content.split("\n");

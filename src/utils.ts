@@ -22,11 +22,11 @@ export function normalizeArabic(text: string): string {
 }
 
 export function parseAyahNoteTags(rawTags: string): string[] {
-  return rawTags
+  const tags = rawTags
     .split(",")
     .map((tag) => tag.trim().replace(/^#+/, ""))
-    .filter((tag) => Boolean(tag))
-    .filter((tag, index, all) => all.indexOf(tag) === index);
+    .filter((tag) => Boolean(tag));
+  return [...new Set(tags)];
 }
 
 export function withTagsFrontmatter(content: string, rawTags: string): string {

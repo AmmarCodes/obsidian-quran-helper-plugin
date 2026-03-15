@@ -47,7 +47,8 @@ class QuranDataService {
           typeof ayah.text !== "string" ||
           typeof ayah.surah_name !== "string" ||
           typeof ayah.ayah_id !== "number" ||
-          typeof ayah.surah_id !== "number"
+          typeof ayah.surah_id !== "number" ||
+          typeof ayah.page !== "number"
         ) {
           throw new Error(
             `Invalid ayah data at index ${index}: missing required fields`,
