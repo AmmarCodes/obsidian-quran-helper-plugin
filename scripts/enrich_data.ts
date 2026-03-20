@@ -53,7 +53,7 @@ function fetchJson<T>(url: string): Promise<T> {
 
 async function buildPageMap(): Promise<Map<string, number>> {
   const url = "https://api.alquran.cloud/v1/quran/quran-uthmani";
-  console.log(`جاري التحميل من: ${url}`);
+  console.log(`Fetching from: ${url}`);
 
   const data = await fetchJson<AlquranResponse>(url);
   const map = new Map<string, number>();
@@ -73,20 +73,20 @@ async function enrichQuranData(): Promise<void> {
 
   // 1. تحميل ayahs.json
   if (!fs.existsSync(inputPath)) {
-    console.error(`خطأ: الملف مش موجود: ${inputPath}`);
+    console.error(`Error: File not found: ${inputPath}`);
     process.exit(1);
   }
 
   const ayahs: RawAyah[] = JSON.parse(
     fs.readFileSync(inputPath, "utf-8"),
   ) as RawAyah[];
-  console.log(`تم تحميل ${ayahs.length} آية من ${path.basename(inputPath)}`);
+  console.log(`Loaded ${ayahs.length} ayahs from ${path.basename(inputPath)}`);
 
-  // 2. جيب خريطة الصفحات
+  // 2. Get page map
   const pageMap = await buildPageMap();
-  console.log(`تم بناء خريطة الصفحات: ${pageMap.size} آية`);
+  console.log(`Built page map: ${pageMap.size} ayahs`);
 
-  // 3. أضف رقم الصفحة لكل آية
+  // 3. Add page number to each ayah
   let enrichedCount = 0;
   const missing: string[] = [];
 
@@ -103,18 +103,18 @@ async function enrichQuranData(): Promise<void> {
 
   if (missing.length > 0) {
     console.warn(
-      `تحذير: ${missing.length} آية مش موجودة في الـ API: ${missing.slice(0, 5).join(", ")}`,
+      `Warning: ${missing.length} ayahs not found in API: ${missing.slice(0, 5).join(", ")}`,
     );
   }
 
-  // 4. احفظ النسخة الجديدة (compact بدون indent)
+  // 4. Save the new version (compact without indent)
   fs.writeFileSync(outputPath, JSON.stringify(ayahs), "utf-8");
 
-  console.log(`\nتم بنجاح! تم إضافة رقم الصفحة لـ ${enrichedCount} آية.`);
-  console.log(`الملف الجديد جاهز: ${outputPath}`);
+  console.log(`\nSuccess! Added page number to ${enrichedCount} ayahs.`);
+  console.log(`New file ready: ${outputPath}`);
 }
 
 enrichQuranData().catch((err) => {
-  console.error("فشل السكريبت:", err);
+  console.error("Script failed:", err);
   process.exit(1);
 });
