@@ -31,7 +31,7 @@ export class FzfAyahModal extends SuggestModal<IndexedAyah> {
       this.inputEl.dispatchEvent(new Event("input"));
     } catch (error) {
       console.error("Failed to load ayahs:", error);
-      // Fallback is already handled by constructor initialization
+      new Notice("Using offline data. Some ayahs may be unavailable.");
     }
   }
 
