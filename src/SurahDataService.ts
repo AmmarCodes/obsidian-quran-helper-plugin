@@ -1,4 +1,5 @@
-import type { IndexedSurah, SearchableSurah } from "./types";
+import type { IndexedSurah } from "./types";
+import { isSearchableSurahArray } from "./types";
 import { normalizeArabic } from "./utils";
 
 class SurahDataService {
@@ -19,28 +20,15 @@ class SurahDataService {
 
     try {
       const data = await import("./surahs.json");
-      const rawSurahs = (data.default || data) as unknown as SearchableSurah[];
+      const rawData = data.default || data;
 
-      // Validate data structure
-      if (!Array.isArray(rawSurahs)) {
-        throw new Error("Invalid surahs data format: expected an array");
+      if (!isSearchableSurahArray(rawData)) {
+        throw new Error(
+          "Invalid surahs data format: expected an array of SearchableSurah",
+        );
       }
 
-      this.surahs = rawSurahs.map((surah, index) => {
-        // Validate each surah has required fields
-        if (
-          !surah ||
-          typeof surah.id !== "number" ||
-          typeof surah.name !== "string" ||
-          typeof surah.transliteration !== "string" ||
-          typeof surah.type !== "string" ||
-          typeof surah.total_verses !== "number"
-        ) {
-          throw new Error(
-            `Invalid surah data at index ${index}: missing required fields`,
-          );
-        }
-
+      this.surahs = rawData.map((surah) => {
         return {
           ...surah,
           normalized_name: normalizeArabic(surah.name),

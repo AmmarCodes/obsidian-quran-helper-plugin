@@ -1,4 +1,5 @@
-import type { IndexedAyah, SearchableAyah } from "./types";
+import type { IndexedAyah } from "./types";
+import { isSearchableAyahArray } from "./types";
 import { normalizeArabic } from "./utils";
 import { QuranSearch } from "./QuranSearch";
 import { surahDataService } from "./SurahDataService";
@@ -30,31 +31,20 @@ class QuranDataService {
 
     try {
       const data = await import("./ayahs.json");
-      const rawAyahs = (data.default || data) as unknown as SearchableAyah[];
+      const rawData = data.default || data;
 
-      // Validate data structure
-      if (!Array.isArray(rawAyahs)) {
-        throw new Error("Invalid ayahs data format: expected an array");
+      if (!isSearchableAyahArray(rawData)) {
+        throw new Error(
+          "Invalid ayahs data format: expected an array of SearchableAyah",
+        );
       }
+
+      const rawAyahs = rawData;
 
       const surahs = await surahDataService.getSurahs();
       const surahMap = new Map(surahs.map((s) => [s.id, s.transliteration]));
 
-      this.ayahs = rawAyahs.map((ayah, index) => {
-        // Validate each ayah has required fields
-        if (
-          !ayah ||
-          typeof ayah.text !== "string" ||
-          typeof ayah.surah_name !== "string" ||
-          typeof ayah.ayah_id !== "number" ||
-          typeof ayah.surah_id !== "number" ||
-          typeof ayah.page !== "number"
-        ) {
-          throw new Error(
-            `Invalid ayah data at index ${index}: missing required fields`,
-          );
-        }
-
+      this.ayahs = rawAyahs.map((ayah) => {
         const enrichedAyah = {
           ...ayah,
           surah_name_en: surahMap.get(ayah.surah_id) || "",
