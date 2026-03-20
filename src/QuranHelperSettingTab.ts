@@ -115,5 +115,17 @@ export class QuranHelperSettingTab extends PluginSettingTab {
             await this.plugin.saveSettings();
           });
       });
+
+    new Setting(containerEl)
+      .setName("Link to Surah")
+      .setDesc("Add a link to the Surah note at the bottom of the Ayah note")
+      .addToggle((toggle) =>
+        toggle
+          .setValue(this.plugin.settings.linkToSurah)
+          .onChange(async (value) => {
+            this.plugin.settings.linkToSurah = value;
+            await this.plugin.saveSettings();
+          }),
+      );
   }
 }

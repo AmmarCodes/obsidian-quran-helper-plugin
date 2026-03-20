@@ -106,7 +106,8 @@ export default class QuranHelper extends Plugin {
   }
 
   async createAyahNote(ayah: IndexedAyah) {
-    const { ayahNoteFolder, ayahNotePathPattern, ayahNoteTags } = this.settings;
+    const { ayahNoteFolder, ayahNotePathPattern, ayahNoteTags, linkToSurah } =
+      this.settings;
 
     const isEnglish =
       ayahNotePathPattern === "surah-ayah" ||
@@ -138,6 +139,10 @@ export default class QuranHelper extends Plugin {
         : `> [!${type}] ${surahName}\n> ${ayah.text} (${ayah.ayah_id})\n\n`;
 
     content = withTagsFrontmatter(content, ayahNoteTags);
+
+    if (linkToSurah) {
+      content += `[[${ayah.surah_name_en}]]\n`;
+    }
 
     try {
       await this.ensureFolderExists(fullPath);

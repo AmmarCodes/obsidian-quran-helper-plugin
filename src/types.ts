@@ -39,6 +39,7 @@ export interface QuranHelperSettings {
     | "surah/ayah"
     | "arabic-ayah"
     | "arabic/ayah";
+  linkToSurah: boolean;
 }
 
 export const DEFAULT_SETTINGS: QuranHelperSettings = {
@@ -47,4 +48,5 @@ export const DEFAULT_SETTINGS: QuranHelperSettings = {
   ayahNoteFolder: "",
   ayahNoteTags: "",
   ayahNotePathPattern: "surah-ayah",
+  linkToSurah: false,
 };
