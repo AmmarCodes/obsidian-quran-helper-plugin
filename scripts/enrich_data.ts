@@ -71,7 +71,6 @@ async function enrichQuranData(): Promise<void> {
   const inputPath = path.join(SRC_DIR, "../src/ayahs.json");
   const outputPath = path.join(SRC_DIR, "../src/ayahs.json");
 
-  // 1. تحميل ayahs.json
   if (!fs.existsSync(inputPath)) {
     console.error(`Error: File not found: ${inputPath}`);
     process.exit(1);
@@ -82,11 +81,11 @@ async function enrichQuranData(): Promise<void> {
   ) as RawAyah[];
   console.log(`Loaded ${ayahs.length} ayahs from ${path.basename(inputPath)}`);
 
-  // 2. Get page map
+  // Get page map
   const pageMap = await buildPageMap();
   console.log(`Built page map: ${pageMap.size} ayahs`);
 
-  // 3. Add page number to each ayah
+  // Add page number to each ayah
   let enrichedCount = 0;
   const missing: string[] = [];
 
@@ -107,7 +106,7 @@ async function enrichQuranData(): Promise<void> {
     );
   }
 
-  // 4. Save the new version (compact without indent)
+  // Save the new version (compact without indent)
   fs.writeFileSync(outputPath, JSON.stringify(ayahs), "utf-8");
 
   console.log(`\nSuccess! Added page number to ${enrichedCount} ayahs.`);
