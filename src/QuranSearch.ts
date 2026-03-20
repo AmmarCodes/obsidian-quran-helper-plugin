@@ -63,7 +63,7 @@ export class QuranSearch {
       const queryStr = query.trim();
       for (const ayah of this.ayahs) {
         if (results.length >= limit) break;
-        if (ayah.ayah_id.toString().includes(queryStr)) {
+        if (ayah.ayah_id === parseInt(queryStr, 10)) {
           results.push(ayah);
         }
       }
