@@ -1,7 +1,7 @@
 import {
   normalizeArabic,
   parseAyahNoteTags,
-  withTagsFrontmatter,
+  withFrontmatter,
   convertArabicNumerals,
   isNumericQuery,
   isSurahAyahQuery,
@@ -54,16 +54,32 @@ describe("parseAyahNoteTags", () => {
   });
 });
 
-describe("withTagsFrontmatter", () => {
-  test("returns content unchanged when there are no tags", () => {
+describe("withFrontmatter", () => {
+  test("returns content unchanged when there are no tags or surah", () => {
     const content = "> [!quran] Al-Fatihah\n> text (1)\n";
-    expect(withTagsFrontmatter(content, " ,  , ##")).toBe(content);
+    expect(withFrontmatter(content, {})).toBe(content);
   });
 
   test("prepends tags frontmatter when tags are provided", () => {
     const content = "> [!quran] Al-Fatihah\n> text (1)\n";
-    expect(withTagsFrontmatter(content, "#quran, ayah, #quran")).toBe(
+    expect(withFrontmatter(content, { rawTags: "#quran, ayah, #quran" })).toBe(
       "---\ntags:\n  - quran\n  - ayah\n---\n> [!quran] Al-Fatihah\n> text (1)\n",
+    );
+  });
+
+  test("adds surah property when surah is provided", () => {
+    const content = "> [!quran] Al-Fatihah\n> text (1)\n";
+    expect(withFrontmatter(content, { surah: "Al-Fatihah" })).toBe(
+      '---\nsurah: "Al-Fatihah"\n---\n> [!quran] Al-Fatihah\n> text (1)\n',
+    );
+  });
+
+  test("adds both tags and surah when provided", () => {
+    const content = "> [!quran] Al-Fatihah\n> text (1)\n";
+    expect(
+      withFrontmatter(content, { rawTags: "quran", surah: "Al-Fatihah" }),
+    ).toBe(
+      '---\ntags:\n  - quran\nsurah: "Al-Fatihah"\n---\n> [!quran] Al-Fatihah\n> text (1)\n',
     );
   });
 });

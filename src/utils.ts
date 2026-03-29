@@ -77,12 +77,31 @@ export function parseAyahNoteTags(rawTags: string): string[] {
   return [...new Set(tags)];
 }
 
-export function withTagsFrontmatter(content: string, rawTags: string): string {
-  const tags = parseAyahNoteTags(rawTags);
-  if (tags.length === 0) {
+export function withFrontmatter(
+  content: string,
+  options: { rawTags?: string; surah?: string },
+): string {
+  const { rawTags, surah } = options;
+  const tags = rawTags ? parseAyahNoteTags(rawTags) : [];
+
+  if (tags.length === 0 && !surah) {
     return content;
   }
 
-  const frontmatterTags = tags.map((tag) => `  - ${tag}`).join("\n");
-  return `---\ntags:\n${frontmatterTags}\n---\n${content}`;
+  const frontmatterLines: string[] = ["---"];
+
+  if (tags.length > 0) {
+    frontmatterLines.push("tags:");
+    for (const tag of tags) {
+      frontmatterLines.push(`  - ${tag}`);
+    }
+  }
+
+  if (surah) {
+    frontmatterLines.push(`surah: "${surah}"`);
+  }
+
+  frontmatterLines.push("---");
+
+  return `${frontmatterLines.join("\n")}\n${content}`;
 }

@@ -5,7 +5,7 @@ import { FzfPageModal } from "src/FzfPageModal";
 import type { QuranHelperSettings, IndexedAyah } from "src/types";
 import { DEFAULT_SETTINGS } from "src/types";
 import { QuranHelperSettingTab } from "src/QuranHelperSettingTab";
-import { withTagsFrontmatter } from "src/utils";
+import { withFrontmatter } from "src/utils";
 
 // 1. Icon for Ayah
 const QURAN_AYAH_ICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -138,11 +138,10 @@ export default class QuranHelper extends Plugin {
         ? `> ## ${surahName}\n>\n> ${ayah.text} (${ayah.ayah_id})\n\n`
         : `> [!${type}] ${surahName}\n> ${ayah.text} (${ayah.ayah_id})\n\n`;
 
-    content = withTagsFrontmatter(content, ayahNoteTags);
-
-    if (linkToSurah) {
-      content += `[[${ayah.surah_name_en}]]\n`;
-    }
+    content = withFrontmatter(content, {
+      rawTags: ayahNoteTags,
+      surah: linkToSurah ? `[[${ayah.surah_name_en}]]` : undefined,
+    });
 
     try {
       await this.ensureFolderExists(fullPath);
