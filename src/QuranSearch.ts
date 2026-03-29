@@ -1,5 +1,10 @@
 import type { IndexedAyah } from "./types";
-import { normalizeArabic } from "./utils";
+import {
+  isNumericQuery,
+  isSurahAyahQuery,
+  normalizeArabic,
+  parseNumericString,
+} from "./utils";
 
 export class QuranSearch {
   private ayahs: IndexedAyah[];
@@ -40,14 +45,14 @@ export class QuranSearch {
 
     const normalizedQuery = normalizeArabic(query.trim());
 
-    // Handle Surah:Ayah query (e.g. "2:255")
-    const surahAyahMatch = /^(\d+):(\d+)$/.exec(query.trim());
+    // Handle Surah:Ayah query (e.g. "2:255" or "٢:٢٥٥")
+    const surahAyahMatch = isSurahAyahQuery(query);
     if (surahAyahMatch) {
       const surahStr = surahAyahMatch[1];
       const ayahStr = surahAyahMatch[2];
       if (surahStr && ayahStr) {
-        const surahId = parseInt(surahStr, 10);
-        const ayahId = parseInt(ayahStr, 10);
+        const surahId = parseNumericString(surahStr);
+        const ayahId = parseNumericString(ayahStr);
         const found = this.ayahs.find(
           (a) => a.surah_id === surahId && a.ayah_id === ayahId,
         );
@@ -55,15 +60,15 @@ export class QuranSearch {
       }
     }
 
-    const isNumericQuery = /^\d+$/.test(query.trim());
+    const isNumeric = isNumericQuery(query);
 
-    // Handle numeric query (Ayah ID matching)
-    if (isNumericQuery) {
+    // Handle numeric query (Ayah ID matching) - supports both Western and Arabic numerals
+    if (isNumeric) {
       const results: IndexedAyah[] = [];
-      const queryStr = query.trim();
+      const queryNum = parseNumericString(query.trim());
       for (const ayah of this.ayahs) {
         if (results.length >= limit) break;
-        if (ayah.ayah_id === parseInt(queryStr, 10)) {
+        if (ayah.ayah_id === queryNum) {
           results.push(ayah);
         }
       }

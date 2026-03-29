@@ -1,5 +1,9 @@
 import type { IndexedSurah } from "./types";
-import { normalizeArabic } from "./utils";
+import {
+  convertArabicNumerals,
+  isNumericQuery,
+  normalizeArabic,
+} from "./utils";
 
 export class SurahSearch {
   private surahs: IndexedSurah[];
@@ -39,12 +43,12 @@ export class SurahSearch {
     }
 
     const normalizedQuery = normalizeArabic(query.trim());
-    const isNumericQuery = /^\d+$/.test(query.trim());
+    const isNumeric = isNumericQuery(query);
 
-    // Handle numeric query (Surah ID matching)
-    if (isNumericQuery) {
+    // Handle numeric query (Surah ID matching) - supports both Western and Arabic numerals
+    if (isNumeric) {
       const results: IndexedSurah[] = [];
-      const queryStr = query.trim();
+      const queryStr = convertArabicNumerals(query.trim());
       for (const surah of this.surahs) {
         if (results.length >= limit) break;
         if (surah.id.toString().includes(queryStr)) {

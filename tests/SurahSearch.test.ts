@@ -64,4 +64,20 @@ describe("SurahSearch", () => {
     const results = search.search("nonexistent");
     expect(results).toHaveLength(0);
   });
+
+  describe("Arabic numeral support", () => {
+    test("finds surah by Arabic numeral ID", () => {
+      const results = search.search("١١٢");
+      expect(results).toHaveLength(1);
+      expect(results[0]?.id).toBe(112);
+    });
+
+    test("Arabic numerals work like Western (substring match)", () => {
+      const results = search.search("١");
+      // "1" matches surahs 1 and 112
+      expect(results).toHaveLength(2);
+      expect(results.map((r) => r.id)).toContain(1);
+      expect(results.map((r) => r.id)).toContain(112);
+    });
+  });
 });

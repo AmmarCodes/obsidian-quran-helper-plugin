@@ -113,6 +113,27 @@ describe("QuranSearch (Inverted Index)", () => {
     expect(results).toHaveLength(0);
   });
 
+  describe("Arabic numeral support", () => {
+    it("finds ayah by Arabic numeral", () => {
+      const results = searchService.search("١");
+      expect(results).toHaveLength(2);
+      expect(results.map((r) => r.ayah_id)).toContain(1);
+    });
+
+    it("finds ayah by surah:ayah with Arabic numerals", () => {
+      const results = searchService.search("١١٢:١");
+      expect(results).toHaveLength(1);
+      expect(results[0]?.surah_id).toBe(112);
+      expect(results[0]?.ayah_id).toBe(1);
+    });
+
+    it("supports mixed numeral formats (Western:Arabic)", () => {
+      const results = searchService.search("112:١");
+      expect(results).toHaveLength(1);
+      expect(results[0]?.surah_id).toBe(112);
+    });
+  });
+
   describe("Surah:Ayah lookup", () => {
     it("finds exact ayah by surah:ayah format", () => {
       const results = searchService.search("1:1");
@@ -141,6 +162,20 @@ describe("QuranSearch (Inverted Index)", () => {
     it("does not treat surah:ayah-like strings with non-digits as coordinate lookup", () => {
       const results = searchService.search("2:1abc");
       expect(results).toHaveLength(0);
+    });
+  });
+
+  describe("Arabic numeral Surah:Ayah format", () => {
+    it("finds ayah with Arabic numerals (١١٢:١)", () => {
+      const results = searchService.search("١١٢:١");
+      expect(results).toHaveLength(1);
+      expect(results[0]?.surah_id).toBe(112);
+    });
+
+    it("supports mixed numeral formats", () => {
+      const results = searchService.search("112:١");
+      expect(results).toHaveLength(1);
+      expect(results[0]?.surah_id).toBe(112);
     });
   });
 });

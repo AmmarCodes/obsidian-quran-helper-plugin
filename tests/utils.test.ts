@@ -2,6 +2,10 @@ import {
   normalizeArabic,
   parseAyahNoteTags,
   withTagsFrontmatter,
+  convertArabicNumerals,
+  isNumericQuery,
+  isSurahAyahQuery,
+  parseNumericString,
 } from "../src/utils";
 
 describe("normalizeArabicChars", () => {
@@ -61,5 +65,48 @@ describe("withTagsFrontmatter", () => {
     expect(withTagsFrontmatter(content, "#quran, ayah, #quran")).toBe(
       "---\ntags:\n  - quran\n  - ayah\n---\n> [!quran] Al-Fatihah\n> text (1)\n",
     );
+  });
+});
+
+describe("convertArabicNumerals", () => {
+  it("converts Arabic numerals to Western", () => {
+    expect(convertArabicNumerals("١٢٣")).toBe("123");
+    expect(convertArabicNumerals("٢:٢٥٥")).toBe("2:255");
+  });
+
+  it("leaves Western numerals unchanged", () => {
+    expect(convertArabicNumerals("123")).toBe("123");
+  });
+});
+
+describe("isNumericQuery", () => {
+  it("accepts Western and Arabic numerals", () => {
+    expect(isNumericQuery("123")).toBe(true);
+    expect(isNumericQuery("١٢٣")).toBe(true);
+  });
+
+  it("rejects mixed or non-numeric", () => {
+    expect(isNumericQuery("1abc")).toBe(false);
+    expect(isNumericQuery("")).toBe(false);
+  });
+});
+
+describe("isSurahAyahQuery", () => {
+  it("matches Western, Arabic, and mixed numeral formats", () => {
+    expect(isSurahAyahQuery("2:255")?.[1]).toBe("2");
+    expect(isSurahAyahQuery("٢:٢٥٥")?.[1]).toBe("٢");
+    expect(isSurahAyahQuery("2:٢٥٥")).not.toBeNull();
+  });
+
+  it("returns null for invalid formats", () => {
+    expect(isSurahAyahQuery("2255")).toBeNull();
+    expect(isSurahAyahQuery("2:1abc")).toBeNull();
+  });
+});
+
+describe("parseNumericString", () => {
+  it("parses Western and Arabic numerals", () => {
+    expect(parseNumericString("123")).toBe(123);
+    expect(parseNumericString("١٢٣")).toBe(123);
   });
 });
