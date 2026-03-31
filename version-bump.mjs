@@ -97,6 +97,8 @@ const main = async () => {
     `git commit -m \"chore: bump version to ${targetVersion}\" -- package.json package-lock.json manifest.json versions.json`,
   );
   runCommand(`git tag \"${targetVersion}\"`);
+  runCommand("git push");
+  runCommand(`git push origin \"${targetVersion}\"`);
 
   output.write(`Bumped version ${currentVersion} -> ${targetVersion}\n`);
 };
