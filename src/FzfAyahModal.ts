@@ -18,9 +18,18 @@ export class FzfAyahModal extends SuggestModal<IndexedAyah> {
   ) {
     super(app);
     this.setPlaceholder("Search by text, ayah number, or 2:255 for Surah:Ayah");
+    this.setInstructions([
+      { command: "↵", purpose: "insert" },
+      { command: "Mod ↵", purpose: "insert inline" },
+    ]);
     this.plugin = plugin;
     this.onChoose = onChoose || null;
     this.quranSearch = new QuranSearch(INITIAL_AYAHS);
+
+    this.scope.register(["Mod"], "Enter", (evt) => {
+      this.selectActiveSuggestion(evt);
+      return false;
+    });
   }
 
   async onOpen() {
@@ -48,7 +57,7 @@ export class FzfAyahModal extends SuggestModal<IndexedAyah> {
     });
   }
 
-  onChooseSuggestion(ayah: IndexedAyah, _evt: MouseEvent | KeyboardEvent) {
+  onChooseSuggestion(ayah: IndexedAyah, evt: MouseEvent | KeyboardEvent) {
     if (this.onChoose) {
       this.onChoose(ayah);
       return;
@@ -77,7 +86,7 @@ export class FzfAyahModal extends SuggestModal<IndexedAyah> {
       const { outputFormat, calloutType } = this.plugin.settings;
       let content = "";
 
-      if (outputFormat === "inline") {
+      if (evt.ctrlKey || evt.metaKey) {
         content = `{ ${ayah.text} } – ${ayah.surah_name} ${ayah.ayah_id}`;
       } else if (outputFormat === "blockquote") {
         content = `> ${ayah.text}\n> — ${ayah.surah_name} - ${ayah.ayah_id}\n\n`;

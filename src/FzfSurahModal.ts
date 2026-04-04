@@ -13,9 +13,18 @@ export class FzfSurahModal extends SuggestModal<IndexedSurah> {
   constructor(app: App, plugin: QuranHelper) {
     super(app);
     this.plugin = plugin;
+    this.setInstructions([
+      { command: "↵", purpose: "insert" },
+      { command: "Mod ↵", purpose: "insert inline" },
+    ]);
     // Initialize with a temporary search instance using empty array
     // so we can use it immediately while full data loads
     this.surahSearch = new SurahSearch([]);
+
+    this.scope.register(["Mod"], "Enter", (evt) => {
+      this.selectActiveSuggestion(evt);
+      return false;
+    });
   }
 
   async onOpen() {
@@ -46,7 +55,7 @@ export class FzfSurahModal extends SuggestModal<IndexedSurah> {
 
   async onChooseSuggestion(
     surah: IndexedSurah,
-    _evt: MouseEvent | KeyboardEvent,
+    evt: MouseEvent | KeyboardEvent,
   ) {
     // Validate surah object has required properties
     if (
@@ -80,7 +89,7 @@ export class FzfSurahModal extends SuggestModal<IndexedSurah> {
       const { outputFormat, calloutType } = this.plugin.settings;
       const contentParts: string[] = [];
 
-      if (outputFormat === "inline") {
+      if (evt.ctrlKey || evt.metaKey) {
         const inlineParts = surahAyahs.map(
           (ayah) => `{ ${ayah.text} } – ${surah.transliteration} ${ayah.ayah_id}`,
         );
