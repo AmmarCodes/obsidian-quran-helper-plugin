@@ -140,7 +140,7 @@ export default class QuranHelper extends Plugin {
 
     content = withFrontmatter(content, {
       rawTags: ayahNoteTags,
-      surah: linkToSurah ? `[[${ayah.surah_name_en}]]` : undefined,
+      surah: linkToSurah ? `[[${surahName}]]` : undefined,
     });
 
     try {
