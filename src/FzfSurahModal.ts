@@ -91,7 +91,8 @@ export class FzfSurahModal extends SuggestModal<IndexedSurah> {
 
       if (evt.ctrlKey || evt.metaKey) {
         const inlineParts = surahAyahs.map(
-          (ayah) => `{ ${ayah.text} } – ${surah.transliteration} ${ayah.ayah_id}`,
+          (ayah) =>
+            `{ ${ayah.text} } – ${surah.transliteration} ${ayah.ayah_id}`,
         );
         contentParts.push(inlineParts.join("\n\n") + "\n\n");
       } else if (outputFormat === "blockquote") {
