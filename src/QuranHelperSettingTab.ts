@@ -1,6 +1,7 @@
 import type { App } from "obsidian";
 import { PluginSettingTab, Setting } from "obsidian";
 import type QuranHelper from "../main";
+import { FolderSuggest } from "./FolderSuggest";
 
 export class QuranHelperSettingTab extends PluginSettingTab {
   plugin: QuranHelper;
@@ -71,7 +72,6 @@ export class QuranHelperSettingTab extends PluginSettingTab {
     new Setting(containerEl)
       .setName("Ayah Note Folder")
       .setDesc("The folder where Ayah notes will be created")
-      .setClass("quran-folder-setting")
       .addText((text) => {
         text
           .setPlaceholder("Example: Quran/Notes")
@@ -80,9 +80,7 @@ export class QuranHelperSettingTab extends PluginSettingTab {
             this.plugin.settings.ayahNoteFolder = value;
             await this.plugin.saveSettings();
           });
-      })
-      .addExtraButton((button) => {
-        button.setIcon("folder");
+        new FolderSuggest(this.app, text.inputEl);
       });
 
     new Setting(containerEl)
