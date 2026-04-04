@@ -193,11 +193,21 @@ export default class QuranHelper extends Plugin {
 
   onunload() {}
 
+  private static STORAGE_KEY = "quran-helper-settings-backup";
+
   async loadSettings() {
-    this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+    try {
+      const data = await this.loadData();
+      this.settings = Object.assign({}, DEFAULT_SETTINGS, data);
+    } catch {
+      // data.json missing (fresh install or after removal) — try localStorage backup
+      const backup = this.app.loadLocalStorage(QuranHelper.STORAGE_KEY);
+      this.settings = Object.assign({}, DEFAULT_SETTINGS, backup ?? {});
+    }
   }
 
   async saveSettings() {
     await this.saveData(this.settings);
+    this.app.saveLocalStorage(QuranHelper.STORAGE_KEY, this.settings);
   }
 }
