@@ -22,11 +22,13 @@ export class QuranHelperSettingTab extends PluginSettingTab {
         dropdown
           .addOption("blockquote", "Blockquote")
           .addOption("callout", "Callout")
+          .addOption("inline", "Inline")
           .setValue(this.plugin.settings.outputFormat)
           .onChange(async (value) => {
             this.plugin.settings.outputFormat = value as
               | "blockquote"
-              | "callout";
+              | "callout"
+              | "inline";
             await this.plugin.saveSettings();
             this.display(); // Refresh to show/hide options
           }),

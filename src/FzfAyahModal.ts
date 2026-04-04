@@ -77,7 +77,9 @@ export class FzfAyahModal extends SuggestModal<IndexedAyah> {
       const { outputFormat, calloutType } = this.plugin.settings;
       let content = "";
 
-      if (outputFormat === "blockquote") {
+      if (outputFormat === "inline") {
+        content = `{ ${ayah.text} } – ${ayah.surah_name} ${ayah.ayah_id}`;
+      } else if (outputFormat === "blockquote") {
         content = `> ${ayah.text}\n> — ${ayah.surah_name} - ${ayah.ayah_id}\n\n`;
       } else {
         // Callout format
@@ -88,12 +90,13 @@ export class FzfAyahModal extends SuggestModal<IndexedAyah> {
       const cursor = editor.getCursor();
       const lines = content.split("\n");
       const lastLine = lines[lines.length - 1] || "";
+      const isSingleLine = lines.length === 1;
       editor.transaction({
         changes: [{ from: cursor, to: cursor, text: content }],
         selection: {
           from: {
             line: cursor.line + lines.length - 1,
-            ch: lastLine.length,
+            ch: isSingleLine ? cursor.ch + content.length : lastLine.length,
           },
         },
       });

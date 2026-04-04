@@ -64,7 +64,7 @@ export interface IndexedSurah extends SearchableSurah {
 }
 
 export interface QuranHelperSettings {
-  outputFormat: "blockquote" | "callout";
+  outputFormat: "blockquote" | "callout" | "inline";
   calloutType: string;
   ayahNoteFolder: string;
   ayahNoteTags: string;

@@ -80,7 +80,12 @@ export class FzfSurahModal extends SuggestModal<IndexedSurah> {
       const { outputFormat, calloutType } = this.plugin.settings;
       const contentParts: string[] = [];
 
-      if (outputFormat === "blockquote") {
+      if (outputFormat === "inline") {
+        const inlineParts = surahAyahs.map(
+          (ayah) => `{ ${ayah.text} } – ${surah.transliteration} ${ayah.ayah_id}`,
+        );
+        contentParts.push(inlineParts.join("\n\n") + "\n\n");
+      } else if (outputFormat === "blockquote") {
         contentParts.push(`> ## ${surah.name} \n>\n`);
         surahAyahs.forEach((ayah) => {
           contentParts.push(`> ${ayah.ayah_id}. ${ayah.text}\n`);
@@ -101,12 +106,13 @@ export class FzfSurahModal extends SuggestModal<IndexedSurah> {
       const cursor = editor.getCursor();
       const lines = content.split("\n");
       const lastLine = lines[lines.length - 1] || "";
+      const isSingleLine = lines.length === 1;
       editor.transaction({
         changes: [{ from: cursor, to: cursor, text: content }],
         selection: {
           from: {
             line: cursor.line + lines.length - 1,
-            ch: lastLine.length,
+            ch: isSingleLine ? cursor.ch + content.length : lastLine.length,
           },
         },
       });
