@@ -112,7 +112,10 @@ export class FzfPageAyahModal extends SuggestModal<PageAyahItem> {
     } else {
       const type = calloutType || "quran";
       content = `> [!${type}] ${header}\n> `;
-      ayahs.forEach((ayah) => {
+      ayahs.forEach((ayah, index) => {
+        if (index > 0 && ayah.surah_id !== ayahs[index - 1]?.surah_id) {
+          content += `\n>  ---\n> `;
+        }
         content += `${ayah.text} (${ayah.ayah_id}) `;
       });
       content += `\n`;
