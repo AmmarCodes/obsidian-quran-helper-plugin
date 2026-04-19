@@ -114,7 +114,7 @@ export class FzfPageAyahModal extends SuggestModal<PageAyahItem> {
       content = `> [!${type}] ${header}\n> `;
       ayahs.forEach((ayah, index) => {
         if (index > 0 && ayah.surah_id !== ayahs[index - 1]?.surah_id) {
-          content += `\n>  ---\n> `;
+          content += `\n> \n> `;
         }
         content += `${ayah.text} (${ayah.ayah_id}) `;
       });
