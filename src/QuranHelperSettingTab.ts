@@ -64,6 +64,7 @@ export class QuranHelperSettingTab extends PluginSettingTab {
             this.plugin.settings.calloutType = value;
             await this.plugin.saveSettings();
           });
+          return dropdown;
         });
     }
 
