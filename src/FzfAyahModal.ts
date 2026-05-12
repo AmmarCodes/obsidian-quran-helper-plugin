@@ -50,7 +50,7 @@ export class FzfAyahModal extends SuggestModal<IndexedAyah> {
   }
 
   renderSuggestion(ayah: IndexedAyah, el: HTMLElement) {
-    const textEl = el.createEl("div", { text: ayah.text });
+    const textEl = el.createDiv({ text: ayah.text });
     textEl.setAttribute("dir", "rtl");
     el.createEl("small", {
       text: `${ayah.surah_name} - ${ayah.ayah_id}`,

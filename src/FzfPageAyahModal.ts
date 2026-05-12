@@ -45,7 +45,7 @@ export class FzfPageAyahModal extends SuggestModal<PageAyahItem> {
 
   renderSuggestion(item: PageAyahItem, el: HTMLElement) {
     if (item.kind === "all") {
-      const textEl = el.createEl("div", {
+      const textEl = el.createDiv({
         text: `إدراج الصفحة ${this.entry.page} كاملة`,
       });
       textEl.setAttribute("dir", "rtl");
@@ -54,7 +54,7 @@ export class FzfPageAyahModal extends SuggestModal<PageAyahItem> {
     }
 
     const { ayah } = item;
-    const textEl = el.createEl("div", { text: ayah.text });
+    const textEl = el.createDiv({ text: ayah.text });
     textEl.setAttribute("dir", "rtl");
     el.createEl("small", {
       text: `${ayah.surah_name} - ${ayah.ayah_id}`,

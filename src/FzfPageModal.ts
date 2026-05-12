@@ -40,7 +40,7 @@ export class FzfPageModal extends SuggestModal<PageEntry> {
     const last = entry.ayahs.at(-1);
     if (!first || !last) return;
 
-    const textEl = el.createEl("div", {
+    const textEl = el.createDiv({
       text: `الصفحة ${entry.page}  —  ${entry.ayahs.length} آية`,
     });
     textEl.setAttribute("dir", "rtl");

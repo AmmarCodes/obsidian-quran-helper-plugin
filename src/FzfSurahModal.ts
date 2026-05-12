@@ -46,7 +46,7 @@ export class FzfSurahModal extends SuggestModal<IndexedSurah> {
   }
 
   renderSuggestion(surah: IndexedSurah, el: HTMLElement) {
-    const textEl = el.createEl("div", { text: surah.name });
+    const textEl = el.createDiv({ text: surah.name });
     textEl.setAttribute("dir", "rtl");
     el.createEl("small", {
       text: `${surah.transliteration} - ${surah.type} - ${surah.total_verses} verses`,
