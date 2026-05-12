@@ -88,9 +88,9 @@ export default class QuranHelper extends Plugin {
       "file-plus",
       "Create Ayah Note (إنشاء ملاحظة آية)",
       () => {
-        new FzfAyahModal(this.app, this, (ayah) =>
-          this.createAyahNote(ayah),
-        ).open();
+        new FzfAyahModal(this.app, this, (ayah) => {
+          void this.createAyahNote(ayah);
+        }).open();
       },
     );
 
@@ -98,9 +98,9 @@ export default class QuranHelper extends Plugin {
       id: "create-ayah-note",
       name: "Create Ayah Note (إنشاء ملاحظة آية)",
       callback: () => {
-        new FzfAyahModal(this.app, this, (ayah) =>
-          this.createAyahNote(ayah),
-        ).open();
+        new FzfAyahModal(this.app, this, (ayah) => {
+          void this.createAyahNote(ayah);
+        }).open();
       },
     });
   }
@@ -146,7 +146,7 @@ export default class QuranHelper extends Plugin {
     try {
       await this.ensureFolderExists(fullPath);
       const file = await this.app.vault.create(fullPath, content);
-      const leaf = this.app.workspace.getLeaf(false);
+      const leaf = this.app.workspace.getLeaf("tab");
       await leaf.openFile(file);
     } catch (error) {
       console.error("Failed to create ayah note:", error);
