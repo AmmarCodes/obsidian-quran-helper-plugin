@@ -2,6 +2,8 @@
 
 إضافة لـ Obsidian يساعدك على العثور على إدراج آيات القرآن في ملاحظاتك.
 
+---
+
 ## Quran Helper (English)
 
 A plugin for Obsidian that helps you search and insert Quran ayahs and surahs into your notes. Supports fuzzy search by ayah text, surah name, or numeric reference, with multiple output formats.
@@ -30,6 +32,8 @@ A plugin for Obsidian that helps you search and insert Quran ayahs and surahs in
 - **Insert Page** — Search and insert by page number
 - **Create Ayah Note** — Create a standalone note for an ayah
 - Press `Mod+Enter` (Cmd/Ctrl) to insert inline without changing your default format
+
+---
 
 ## لقطات الشاشة
 
