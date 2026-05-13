@@ -33,7 +33,7 @@ export class FzfAyahModal extends SuggestModal<IndexedAyah> {
   }
 
   async onOpen() {
-    super.onOpen();
+    void super.onOpen();
     try {
       this.quranSearch = await quranDataService.getSearchService();
       // Trigger search update to show full results if input is not empty

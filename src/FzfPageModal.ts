@@ -16,7 +16,7 @@ export class FzfPageModal extends SuggestModal<PageEntry> {
   }
 
   async onOpen() {
-    super.onOpen();
+    void super.onOpen();
     try {
       const pageMap = await quranDataService.getPageMap();
       this.pages = Array.from(pageMap.entries())

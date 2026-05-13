@@ -25,12 +25,12 @@ export class QuranHelperSettingTab extends PluginSettingTab {
           .addOption("callout", "Callout")
           .addOption("inline", "Inline")
           .setValue(this.plugin.settings.outputFormat)
-          .onChange(async (value) => {
+          .onChange((value) => {
             this.plugin.settings.outputFormat = value as
               | "blockquote"
               | "callout"
               | "inline";
-            await this.plugin.saveSettings();
+            void this.plugin.saveSettings();
             this.display(); // Refresh to show/hide options
           }),
       );
@@ -60,15 +60,15 @@ export class QuranHelperSettingTab extends PluginSettingTab {
         .addDropdown((dropdown) => {
           calloutTypes.forEach((type) => dropdown.addOption(type, type));
           dropdown.setValue(this.plugin.settings.calloutType);
-          dropdown.onChange(async (value) => {
+          dropdown.onChange((value) => {
             this.plugin.settings.calloutType = value;
-            await this.plugin.saveSettings();
+            void this.plugin.saveSettings();
           });
           return dropdown;
         });
     }
 
-    containerEl.createEl("h3", { text: "Ayah Note Settings" });
+    new Setting(containerEl).setName("Ayah Note Settings").setHeading();
 
     new Setting(containerEl)
       .setName("Ayah Note Folder")
@@ -77,9 +77,9 @@ export class QuranHelperSettingTab extends PluginSettingTab {
         text
           .setPlaceholder("Example: Quran/Notes")
           .setValue(this.plugin.settings.ayahNoteFolder)
-          .onChange(async (value) => {
+          .onChange((value) => {
             this.plugin.settings.ayahNoteFolder = value;
-            await this.plugin.saveSettings();
+            void this.plugin.saveSettings();
           });
         new FolderSuggest(this.app, text.inputEl);
       });
@@ -94,13 +94,13 @@ export class QuranHelperSettingTab extends PluginSettingTab {
           .addOption("arabic-ayah", "الملك-1")
           .addOption("arabic/ayah", "الملك/1")
           .setValue(this.plugin.settings.ayahNotePathPattern)
-          .onChange(async (value) => {
+          .onChange((value) => {
             this.plugin.settings.ayahNotePathPattern = value as
               | "surah-ayah"
               | "surah/ayah"
               | "arabic-ayah"
               | "arabic/ayah";
-            await this.plugin.saveSettings();
+            void this.plugin.saveSettings();
           }),
       );
 
@@ -111,9 +111,9 @@ export class QuranHelperSettingTab extends PluginSettingTab {
         text
           .setPlaceholder("quran, ayah")
           .setValue(this.plugin.settings.ayahNoteTags)
-          .onChange(async (value) => {
+          .onChange((value) => {
             this.plugin.settings.ayahNoteTags = value;
-            await this.plugin.saveSettings();
+            void this.plugin.saveSettings();
           });
       });
 
@@ -121,12 +121,10 @@ export class QuranHelperSettingTab extends PluginSettingTab {
       .setName("Link to Surah")
       .setDesc("Add a link to the Surah note at the bottom of the Ayah note")
       .addToggle((toggle) =>
-        toggle
-          .setValue(this.plugin.settings.linkToSurah)
-          .onChange(async (value) => {
-            this.plugin.settings.linkToSurah = value;
-            await this.plugin.saveSettings();
-          }),
+        toggle.setValue(this.plugin.settings.linkToSurah).onChange((value) => {
+          this.plugin.settings.linkToSurah = value;
+          void this.plugin.saveSettings();
+        }),
       );
   }
 }

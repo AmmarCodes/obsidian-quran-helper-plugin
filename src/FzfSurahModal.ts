@@ -28,7 +28,7 @@ export class FzfSurahModal extends SuggestModal<IndexedSurah> {
   }
 
   async onOpen() {
-    super.onOpen();
+    void super.onOpen();
     try {
       const surahs = await surahDataService.getSurahs();
       this.surahSearch = new SurahSearch(surahs);
@@ -53,82 +53,81 @@ export class FzfSurahModal extends SuggestModal<IndexedSurah> {
     });
   }
 
-  async onChooseSuggestion(
-    surah: IndexedSurah,
-    evt: MouseEvent | KeyboardEvent,
-  ) {
-    // Validate surah object has required properties
-    if (
-      !surah ||
-      !surah.name ||
-      !surah.transliteration ||
-      typeof surah.id !== "number" ||
-      typeof surah.total_verses !== "number"
-    ) {
-      console.error("Invalid surah data:", surah);
-      new Notice("Error: Invalid surah data. Please try again.");
-      return;
-    }
-
-    const view = this.app.workspace.getActiveViewOfType(MarkdownView);
-    const editor = view?.editor;
-    if (!editor) {
-      new Notice("Error: No active editor found. Please open a note first.");
-      return;
-    }
-
-    try {
-      // Load verses for this surah from ayahs data
-      const allAyahs = await quranDataService.getAyahs();
-      const surahAyahs = allAyahs.filter((a) => a.surah_id === surah.id);
-
-      if (surahAyahs.length === 0) {
-        throw new Error(`Could not find verses for surah ${surah.id}`);
+  onChooseSuggestion(surah: IndexedSurah, evt: MouseEvent | KeyboardEvent) {
+    void (async () => {
+      // Validate surah object has required properties
+      if (
+        !surah ||
+        !surah.name ||
+        !surah.transliteration ||
+        typeof surah.id !== "number" ||
+        typeof surah.total_verses !== "number"
+      ) {
+        console.error("Invalid surah data:", surah);
+        new Notice("Error: Invalid surah data. Please try again.");
+        return;
       }
 
-      const { outputFormat, calloutType } = this.plugin.settings;
-      const contentParts: string[] = [];
-
-      if (evt.ctrlKey || evt.metaKey) {
-        const inlineParts = surahAyahs.map(
-          (ayah) =>
-            `{ ${ayah.text} } – ${surah.transliteration} ${ayah.ayah_id}`,
-        );
-        contentParts.push(inlineParts.join("\n\n") + "\n\n");
-      } else if (outputFormat === "blockquote") {
-        contentParts.push(`> ## ${surah.name} \n>\n`);
-        surahAyahs.forEach((ayah) => {
-          contentParts.push(`> ${ayah.ayah_id}. ${ayah.text}\n`);
-        });
-        contentParts.push(`\n\n`);
-      } else {
-        const type = calloutType || "quran";
-        contentParts.push(`> [!${type}] ${surah.name}\n`);
-        contentParts.push("> ");
-        surahAyahs.forEach((ayah) => {
-          contentParts.push(`${ayah.text} (${ayah.ayah_id}) `);
-        });
-        contentParts.push(`\n\n`);
+      const view = this.app.workspace.getActiveViewOfType(MarkdownView);
+      const editor = view?.editor;
+      if (!editor) {
+        new Notice("Error: No active editor found. Please open a note first.");
+        return;
       }
 
-      const content = contentParts.join("");
+      try {
+        // Load verses for this surah from ayahs data
+        const allAyahs = await quranDataService.getAyahs();
+        const surahAyahs = allAyahs.filter((a) => a.surah_id === surah.id);
 
-      const cursor = editor.getCursor();
-      const lines = content.split("\n");
-      const lastLine = lines[lines.length - 1] || "";
-      const isSingleLine = lines.length === 1;
-      editor.transaction({
-        changes: [{ from: cursor, to: cursor, text: content }],
-        selection: {
-          from: {
-            line: cursor.line + lines.length - 1,
-            ch: isSingleLine ? cursor.ch + content.length : lastLine.length,
+        if (surahAyahs.length === 0) {
+          throw new Error(`Could not find verses for surah ${surah.id}`);
+        }
+
+        const { outputFormat, calloutType } = this.plugin.settings;
+        const contentParts: string[] = [];
+
+        if (evt.ctrlKey || evt.metaKey) {
+          const inlineParts = surahAyahs.map(
+            (ayah) =>
+              `{ ${ayah.text} } – ${surah.transliteration} ${ayah.ayah_id}`,
+          );
+          contentParts.push(inlineParts.join("\n\n") + "\n\n");
+        } else if (outputFormat === "blockquote") {
+          contentParts.push(`> ## ${surah.name} \n>\n`);
+          surahAyahs.forEach((ayah) => {
+            contentParts.push(`> ${ayah.ayah_id}. ${ayah.text}\n`);
+          });
+          contentParts.push(`\n\n`);
+        } else {
+          const type = calloutType || "quran";
+          contentParts.push(`> [!${type}] ${surah.name}\n`);
+          contentParts.push("> ");
+          surahAyahs.forEach((ayah) => {
+            contentParts.push(`${ayah.text} (${ayah.ayah_id}) `);
+          });
+          contentParts.push(`\n\n`);
+        }
+
+        const content = contentParts.join("");
+
+        const cursor = editor.getCursor();
+        const lines = content.split("\n");
+        const lastLine = lines[lines.length - 1] || "";
+        const isSingleLine = lines.length === 1;
+        editor.transaction({
+          changes: [{ from: cursor, to: cursor, text: content }],
+          selection: {
+            from: {
+              line: cursor.line + lines.length - 1,
+              ch: isSingleLine ? cursor.ch + content.length : lastLine.length,
+            },
           },
-        },
-      });
-    } catch (error) {
-      console.error("Failed to insert surah:", error);
-      new Notice("Error: Failed to insert surah. Please try again.");
-    }
+        });
+      } catch (error) {
+        console.error("Failed to insert surah:", error);
+        new Notice("Error: Failed to insert surah. Please try again.");
+      }
+    })();
   }
 }
