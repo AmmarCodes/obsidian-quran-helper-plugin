@@ -64,11 +64,10 @@ export class QuranHelperSettingTab extends PluginSettingTab {
             this.plugin.settings.calloutType = value;
             void this.plugin.saveSettings();
           });
-          return dropdown;
         });
     }
 
-    new Setting(containerEl).setName("Ayah Note Settings").setHeading();
+    new Setting(containerEl).setName("Ayah Note Options").setHeading();
 
     new Setting(containerEl)
       .setName("Ayah Note Folder")
