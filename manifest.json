@@ -1,7 +1,7 @@
 {
 	"id": "quran-helper",
 	"name": "Quran Helper",
-	"version": "1.14.2",
+	"version": "1.14.3",
 	"minAppVersion": "1.8.7",
 	"description": "Find and insert any Quran Ayah (verse) in your notes.",
 	"author": "Ammar Alakkad",
